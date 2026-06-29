@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'feed_controller.dart';
 import 'providers.dart';
+import 'rankings_controller.dart';
 
 class CounterState {
   const CounterState({this.total = 0, this.reconnecting = false});
@@ -55,6 +56,8 @@ class CounterController extends Notifier<CounterState> {
                 ref
                     .read(feedControllerProvider.notifier)
                     .prepend(j['item'] as Map<String, dynamic>);
+              case 'rankings_changed':
+                ref.read(rankingsControllerProvider.notifier).onRemoteChange();
             }
           },
           onError: (_) => _reconnect(),

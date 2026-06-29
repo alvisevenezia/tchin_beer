@@ -1,7 +1,35 @@
+import 'dart:convert';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+import 'package:pintes_app/data/token_store.dart';
 import 'package:pintes_app/models/ranking.dart';
+import 'package:pintes_app/state/providers.dart';
+import 'package:pintes_app/state/rankings_controller.dart';
 
 void main() {
+  ProviderContainer container(MockClient mock) => ProviderContainer(
+        overrides: [
+          httpClientProvider.overrideWithValue(mock),
+          tokenStoreProvider.overrideWithValue(InMemoryTokenStore()),
+        ],
+      );
+
+  http.Response ok(String period, List<String> names) => http.Response(
+        jsonEncode({
+          'period': period,
+          'cities': [
+            for (var i = 0; i < names.length; i++)
+              {'key': names[i].toLowerCase(), 'name': names[i],
+               'count': 10 - i, 'rank': i + 1},
+          ],
+          'me': null,
+        }),
+        200,
+      );
+
   test('Rankings.fromJson parses cities and nullable me', () {
     final j = {
       'period': 'day',
@@ -19,5 +47,43 @@ void main() {
     final r2 = Rankings.fromJson({'period': 'week', 'cities': [], 'me': null});
     expect(r2.me, isNull);
     expect(r2.cities, isEmpty);
+  });
+
+  testWidgets('controller loads day then switches to week', (tester) async {
+    var lastPeriod = '';
+    final c = container(MockClient((req) async {
+      lastPeriod = req.url.queryParameters['period']!;
+      return ok(lastPeriod, ['Lyon', 'Paris']);
+    }));
+    addTearDown(c.dispose);
+
+    // Force build + initial refresh.
+    c.read(rankingsControllerProvider);
+    await tester.pumpAndSettle();
+    expect(c.read(rankingsControllerProvider).data.value!.cities.first.name, 'Lyon');
+
+    c.read(rankingsControllerProvider.notifier).setPeriod('week');
+    await tester.pumpAndSettle();
+    expect(c.read(rankingsControllerProvider).period, 'week');
+    expect(lastPeriod, 'week');
+  });
+
+  testWidgets('onRemoteChange debounces to a single refresh', (tester) async {
+    var calls = 0;
+    final c = container(MockClient((req) async {
+      calls++;
+      return ok('day', ['Lyon']);
+    }));
+    addTearDown(c.dispose);
+    c.read(rankingsControllerProvider);
+    await tester.pumpAndSettle();
+    final baseline = calls; // 1 (initial)
+
+    final n = c.read(rankingsControllerProvider.notifier);
+    n.onRemoteChange();
+    n.onRemoteChange();
+    n.onRemoteChange();
+    await tester.pump(const Duration(milliseconds: 700));
+    expect(calls, baseline + 1); // coalesced
   });
 }
