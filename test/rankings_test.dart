@@ -9,6 +9,7 @@ import 'package:pintes_app/data/token_store.dart';
 import 'package:pintes_app/models/ranking.dart';
 import 'package:pintes_app/state/providers.dart';
 import 'package:pintes_app/state/rankings_controller.dart';
+import 'package:pintes_app/ui/app_shell.dart';
 import 'package:pintes_app/ui/rankings_screen.dart';
 
 void main() {
@@ -115,5 +116,30 @@ void main() {
     expect(find.text('ta ville'), findsOneWidget); // pill sur la ville de me
     expect(find.text('Aujourd\'hui'), findsOneWidget);
     expect(find.text('Cette semaine'), findsOneWidget);
+  });
+
+  testWidgets('Villes tab opens the rankings screen', (tester) async {
+    final c = container(MockClient((req) async {
+      if (req.url.path == '/rankings') return ok('day', ['Lyon']);
+      if (req.url.path == '/me') {
+        return http.Response(
+          jsonEncode({'pseudo': 'Toi', 'city': 'Lyon', 'myCount': 0, 'streak': 0}),
+          200,
+        );
+      }
+      if (req.url.path == '/counter') return http.Response('{"total":0}', 200);
+      return http.Response('{}', 200);
+    }));
+    addTearDown(c.dispose);
+
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: c,
+      child: const PintesApp(home: AppShell()),
+    ));
+    await tester.pump();
+    await tester.tap(find.text('Villes'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    expect(find.textContaining('La guerre'), findsOneWidget);
   });
 }

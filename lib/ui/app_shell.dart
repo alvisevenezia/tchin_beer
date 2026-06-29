@@ -6,6 +6,7 @@ import 'capture_screen.dart';
 import 'feed_screen.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
+import 'rankings_screen.dart';
 import 'success_screen.dart';
 
 class AppShell extends ConsumerStatefulWidget {
@@ -50,6 +51,7 @@ class _AppShellState extends ConsumerState<AppShell> {
         children: [
           HomeScreen(onAddPinte: _openCapture),
           const FeedScreen(),
+          const RankingsScreen(),
           const ProfileScreen(),
         ],
       ),
@@ -63,11 +65,17 @@ class _AppShellState extends ConsumerState<AppShell> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index <= 1 ? _index : 4,
+        currentIndex: switch (_index) { 0 => 0, 1 => 1, 2 => 3, _ => 4 },
         onTap: (i) {
           if (i == 2) return; // slot central FAB
-          if (i == 3) return; // Villes inerte (hors périmètre)
-          setState(() => _index = i == 4 ? 2 : i);
+          setState(
+            () => _index = switch (i) {
+              0 => 0,
+              1 => 1,
+              3 => 2, // Villes -> RankingsScreen
+              _ => 3, // Profil
+            },
+          );
         },
         type: BottomNavigationBarType.fixed,
         selectedItemColor: AppTokens.coral,

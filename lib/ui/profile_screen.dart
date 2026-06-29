@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../state/profile_controller.dart';
+import '../state/rankings_controller.dart';
 import '../theme/app_theme.dart';
 import '../theme/tokens.dart';
 
@@ -39,7 +40,16 @@ class ProfileScreen extends ConsumerWidget {
                 children: [
                   _Stat('${p.myCount}', 'pintes'),
                   _Stat('${p.streak}', 'jours'),
-                  const _Stat('—', 'rang ville'), // Villes hors périmètre
+                  Consumer(
+                    builder: (context, ref, _) {
+                      final me = ref.watch(myWeekCityRankProvider);
+                      final label = me.maybeWhen(
+                        data: (c) => c == null ? '—' : '${c.rank}ᵉ',
+                        orElse: () => '—',
+                      );
+                      return _Stat(label, 'rang ville');
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
