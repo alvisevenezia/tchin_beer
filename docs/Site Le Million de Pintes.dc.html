@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #FFF4E0; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #E2CFA8; border-radius: 100px; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.3; transform:scale(0.65); } }
+  @keyframes floatA { 0%,100% { transform: translateY(0) rotate(-7deg); } 50% { transform: translateY(-18px) rotate(-7deg); } }
+  @keyframes floatB { 0%,100% { transform: translateY(0) rotate(6deg); } 50% { transform: translateY(-22px) rotate(6deg); } }
+  @keyframes floatC { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-14px) rotate(-4deg); } }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+</style>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#2A1A0D;background:#FFF4E0;">
+
+  <!-- ===== NAV ===== -->
+  <header style="position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);background:rgba(255,244,224,0.82);border-bottom:1px solid rgba(42,18,6,0.07);">
+    <div style="max-width:1180px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#2A1A0D;">
+        <span style="width:38px;height:38px;border-radius:11px;background:#FF6A3D;display:flex;align-items:center;justify-content:center;font-size:21px;box-shadow:0 6px 14px rgba(255,106,61,0.34);">🍺</span>
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.02em;">Le Million de Pintes</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:30px;">
+        <a href="#concept" style="text-decoration:none;color:#6A573C;font-weight:700;font-size:15px;">Le concept</a>
+        <a href="#villes" style="text-decoration:none;color:#6A573C;font-weight:700;font-size:15px;">Les villes</a>
+        <a href="#offres" style="text-decoration:none;color:#6A573C;font-weight:700;font-size:15px;">Offres</a>
+        <a href="#faq" style="text-decoration:none;color:#6A573C;font-weight:700;font-size:15px;">FAQ</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="display:flex;align-items:center;gap:7px;background:#FFFBF2;border:1px solid #ECDCBF;padding:7px 13px;border-radius:100px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#FF3B30;animation:pulse 1.4s ease-in-out infinite;"></span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;color:#2A1A0D;font-variant-numeric:tabular-nums;">{{ totalStr }}</span>
+        </div>
+        <a href="#offres" style="text-decoration:none;background:#2A1A0D;color:#FFF4E0;font-weight:800;font-size:15px;padding:11px 20px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;">Rejoindre</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" style="position:relative;overflow:hidden;background:radial-gradient(circle at 50% -10%, #FFE3B8 0%, #FFC982 42%, #FF9E5C 100%);padding:78px 26px 96px;">
+    <!-- floating pinte cards -->
+    <div style="position:absolute;top:120px;left:5%;width:150px;animation:floatA 7s ease-in-out infinite;opacity:0.92;pointer-events:none;">
+      <div style="background:#FFFBF2;border-radius:18px;padding:8px;box-shadow:0 20px 40px rgba(74,28,10,0.22);transform:rotate(-7deg);">
+        <div style="aspect-ratio:4/5;border-radius:12px;background:repeating-linear-gradient(45deg,#F6D9BF 0 14px,#FCE7D4 14px 28px);position:relative;">
+          <span style="position:absolute;top:8px;left:8px;background:rgba(42,18,6,0.78);color:#FFE3C2;font-weight:700;font-size:11px;padding:3px 9px;border-radius:100px;">📍 Lyon</span>
+          <span style="position:absolute;bottom:8px;left:8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;color:#5A3A1A;background:rgba(255,251,242,0.85);padding:2px 9px;border-radius:100px;">#612 880</span>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;top:96px;right:5.5%;width:158px;animation:floatB 8s ease-in-out infinite;opacity:0.92;pointer-events:none;">
+      <div style="background:#FFFBF2;border-radius:18px;padding:8px;box-shadow:0 20px 40px rgba(74,28,10,0.22);transform:rotate(6deg);">
+        <div style="aspect-ratio:4/5;border-radius:12px;background:repeating-linear-gradient(45deg,#CFE6F0 0 14px,#E1F0F7 14px 28px);position:relative;">
+          <span style="position:absolute;top:8px;left:8px;background:rgba(42,18,6,0.78);color:#FFE3C2;font-weight:700;font-size:11px;padding:3px 9px;border-radius:100px;">📍 Toulouse</span>
+          <span style="position:absolute;bottom:8px;left:8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;color:#5A3A1A;background:rgba(255,251,242,0.85);padding:2px 9px;border-radius:100px;">#742 117</span>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:70px;right:11%;width:128px;animation:floatC 6.5s ease-in-out infinite;opacity:0.85;pointer-events:none;">
+      <div style="background:#FFFBF2;border-radius:16px;padding:7px;box-shadow:0 16px 32px rgba(74,28,10,0.2);transform:rotate(-4deg);">
+        <div style="aspect-ratio:4/5;border-radius:11px;background:repeating-linear-gradient(45deg,#E9D8BC 0 14px,#F3E6CE 14px 28px);position:relative;">
+          <span style="position:absolute;bottom:7px;left:7px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:12px;color:#5A3A1A;background:rgba(255,251,242,0.85);padding:2px 8px;border-radius:100px;">#588 401</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="position:relative;z-index:2;max-width:920px;margin:0 auto;text-align:center;">
+      <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(42,18,6,0.9);padding:9px 18px;border-radius:100px;margin-bottom:26px;">
+        <span style="width:9px;height:9px;border-radius:50%;background:#FF6A3D;animation:pulse 1.4s ease-in-out infinite;"></span>
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:#FFCB6B;">En direct · partout en France</span>
+      </div>
+      <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:64px;line-height:0.98;letter-spacing:-0.035em;color:#2A1206;text-wrap:balance;">Un million de pintes.<br>Une seule communauté.</h1>
+      <p style="font-size:20px;font-weight:600;color:#7A4310;max-width:560px;margin:20px auto 0;text-wrap:pretty;">Chaque pinte prise en photo = +1 vers le million. Un compteur mondial qui grimpe en temps réel, et la guerre des villes pour pimenter chaque gorgée.</p>
+
+      <!-- counter slab -->
+      <div style="margin:42px auto 0;max-width:680px;background:rgba(255,251,242,0.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.6);border-radius:30px;padding:30px 34px;box-shadow:0 30px 70px rgba(74,28,10,0.2);">
+        <div style="font-size:14px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#B07A30;">Pintes bues par la communauté</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:94px;line-height:0.9;letter-spacing:-0.03em;color:#2A1206;font-variant-numeric:tabular-nums;margin-top:6px;">{{ totalStr }}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;">
+          <span style="font-weight:800;font-size:16px;color:#B07A30;">{{ progressPct }} du chemin</span>
+          <span style="font-weight:800;font-size:16px;color:#B07A30;">objectif&nbsp;: 1 000 000</span>
+        </div>
+        <div style="margin-top:10px;width:100%;height:16px;border-radius:100px;background:#EAD7B4;overflow:hidden;">
+          <div style="height:100%;border-radius:100px;background:linear-gradient(90deg,#F4A722,#FF6A3D);width:{{ progressBar }};"></div>
+        </div>
+        <div style="margin-top:12px;font-weight:600;font-size:15px;color:#9A7340;">Plus que <strong style="color:#FF6A3D;font-weight:800;">{{ remainingStr }}</strong> pintes à boire ensemble.</div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:34px;flex-wrap:wrap;">
+        <a href="#offres" style="text-decoration:none;background:#FF6A3D;color:#fff;font-weight:800;font-size:18px;padding:17px 32px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;box-shadow:0 14px 30px rgba(255,106,61,0.4);">🍺 Rejoindre le mouvement</a>
+        <a href="#concept" style="text-decoration:none;background:rgba(42,18,6,0.07);color:#2A1206;font-weight:800;font-size:18px;padding:17px 30px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;">Voir comment ça marche</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div style="background:#241308;padding:16px 0;overflow:hidden;white-space:nowrap;">
+    <div style="display:inline-flex;gap:42px;animation:marquee 26s linear infinite;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;color:#FFCB6B;letter-spacing:0.04em;">
+      <span>🍺 1 PINTE = +1</span><span style="color:#FF8A4D;">·</span><span>SANS PUBLICITÉ</span><span style="color:#FF8A4D;">·</span><span>LA GUERRE DES VILLES</span><span style="color:#FF8A4D;">·</span><span>1 023 FONDATEURS</span><span style="color:#FF8A4D;">·</span><span>RESET CHAQUE JOUR</span><span style="color:#FF8A4D;">·</span><span>🍺 1 PINTE = +1</span><span style="color:#FF8A4D;">·</span><span>SANS PUBLICITÉ</span><span style="color:#FF8A4D;">·</span><span>LA GUERRE DES VILLES</span><span style="color:#FF8A4D;">·</span><span>1 023 FONDATEURS</span><span style="color:#FF8A4D;">·</span><span>RESET CHAQUE JOUR</span><span style="color:#FF8A4D;">·</span>
+    </div>
+  </div>
+
+  <!-- ===== CONCEPT ===== -->
+  <section id="concept" style="background:#FFF4E0;padding:96px 26px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="text-align:center;max-width:680px;margin:0 auto 56px;">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;">Le concept</div>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;line-height:1.02;letter-spacing:-0.03em;margin-top:12px;text-wrap:balance;">Trois gestes. Une œuvre collective.</h2>
+        <p style="font-size:19px;font-weight:600;color:#6A573C;margin-top:14px;text-wrap:pretty;">Né d'un défi entre potes sur WhatsApp — un groupe complet, plafonné à 1 024 membres. L'app fait sauter le plafond.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+        <div style="background:#FFFBF2;border-radius:26px;padding:30px;border:1px solid #F0E2C6;">
+          <div style="aspect-ratio:4/5;border-radius:18px;background:repeating-linear-gradient(45deg,#F6D9BF 0 16px,#FCE7D4 16px 32px);position:relative;margin-bottom:22px;">
+            <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:54px;">📸</span>
+            <span style="position:absolute;bottom:10px;left:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;color:#5A3A1A;background:rgba(255,251,242,0.85);padding:3px 11px;border-radius:100px;">ta preuve · ton +1</span>
+          </div>
+          <div style="display:inline-block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;color:#FF6A3D;background:#FFE3D6;padding:5px 12px;border-radius:100px;">01</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;margin-top:12px;">Une photo</h3>
+          <p style="font-size:16px;font-weight:500;color:#6A573C;margin-top:8px;line-height:1.5;">Tu prends ta pinte en photo. Elle est numérotée, validée, et devient ton +1 dans l'histoire.</p>
+        </div>
+
+        <div style="background:#241308;border-radius:26px;padding:30px;color:#FFF4E0;">
+          <div style="aspect-ratio:4/5;border-radius:18px;background:linear-gradient(150deg,#3A230F,#5A3410);position:relative;margin-bottom:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#FFCB6B;">en direct</span>
+            <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;color:#fff;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;margin-top:4px;">{{ totalStr }}</span>
+            <span style="font-size:13px;font-weight:700;color:#D9C3A6;margin-top:2px;">/ 1 000 000</span>
+          </div>
+          <div style="display:inline-block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;color:#241308;background:#FFCB6B;padding:5px 12px;border-radius:100px;">02</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;margin-top:12px;color:#fff;">Un compteur mondial</h3>
+          <p style="font-size:16px;font-weight:500;color:#D9C3A6;margin-top:8px;line-height:1.5;">Le total grimpe en temps réel. Chaque jalon — la 500 000ᵉ, la 999 999ᵉ — devient un évènement vécu ensemble.</p>
+        </div>
+
+        <div style="background:#FFFBF2;border-radius:26px;padding:30px;border:1px solid #F0E2C6;">
+          <div style="aspect-ratio:4/5;border-radius:18px;background:#FFF4E0;position:relative;margin-bottom:22px;padding:14px;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:9px;background:#fff;border-radius:12px;padding:9px;">
+              <span style="width:30px;height:30px;border-radius:50%;background:#F4A722;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Bricolage Grotesque',sans-serif;">L</span>
+              <div style="flex:1;"><div style="font-weight:700;font-size:13px;">Léa M.</div><div style="font-size:11px;color:#9A865F;">+1 · Bordeaux</div></div>
+              <span style="color:#FF6A3D;font-weight:800;font-size:13px;">♥ 12</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;background:#fff;border-radius:12px;padding:9px;">
+              <span style="width:30px;height:30px;border-radius:50%;background:#1AA3D6;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Bricolage Grotesque',sans-serif;">H</span>
+              <div style="flex:1;"><div style="font-weight:700;font-size:13px;">Hugo P.</div><div style="font-size:11px;color:#9A865F;">+1 · Lyon</div></div>
+              <span style="color:#FF6A3D;font-weight:800;font-size:13px;">♥ 8</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;background:#fff;border-radius:12px;padding:9px;">
+              <span style="width:30px;height:30px;border-radius:50%;background:#FF6A3D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Bricolage Grotesque',sans-serif;">I</span>
+              <div style="flex:1;"><div style="font-weight:700;font-size:13px;">Inès R.</div><div style="font-size:11px;color:#9A865F;">+1 · Toulouse</div></div>
+              <span style="color:#FF6A3D;font-weight:800;font-size:13px;">♥ 21</span>
+            </div>
+          </div>
+          <div style="display:inline-block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;color:#1AA3D6;background:#DCF0F8;padding:5px 12px;border-radius:100px;">03</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;margin-top:12px;">Un fil commun</h3>
+          <p style="font-size:16px;font-weight:500;color:#6A573C;margin-top:8px;line-height:1.5;">Toutes les pintes de la communauté, en direct. Le remplaçant de WhatsApp — sans plafond, et avec du jeu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GUERRE DES VILLES ===== -->
+  <section id="villes" style="background:#241308;color:#FFF4E0;padding:96px 26px;">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:0.92fr 1.08fr;gap:60px;align-items:center;">
+      <div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;color:#FFCB6B;">Le moteur</div>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1.0;letter-spacing:-0.03em;margin-top:12px;color:#fff;text-wrap:balance;">La guerre<br>des villes</h2>
+        <p style="font-size:18px;font-weight:500;color:#D9C3A6;margin-top:16px;line-height:1.55;text-wrap:pretty;">Ta ville monte à chaque pinte. Le classement se <strong style="color:#FFCB6B;">remet à zéro chaque jour et chaque semaine</strong> — une nouvelle chance de gagner, tous les matins.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:28px;">
+          <div style="display:flex;align-items:flex-start;gap:13px;">
+            <span style="font-size:22px;">⚔️</span>
+            <div><div style="font-weight:800;font-size:17px;color:#fff;font-family:'Bricolage Grotesque',sans-serif;">Les derbys du week-end</div><div style="font-size:15px;color:#D9C3A6;">Deux villes s'affrontent le temps d'un week-end. Les rivalités se réveillent.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:13px;">
+            <span style="font-size:22px;">🗺️</span>
+            <div><div style="font-weight:800;font-size:17px;color:#fff;font-family:'Bricolage Grotesque',sans-serif;">Villes → Régions → Pays</div><div style="font-size:15px;color:#D9C3A6;">Une petite ville ne battra pas Paris au volume — mais sa région, oui. Personne n'est laissé de côté.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#1A0F06;border-radius:28px;padding:28px 30px;border:1px solid rgba(255,203,107,0.16);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;color:#fff;">Classement · cette semaine</span>
+          <span style="font-weight:700;font-size:13px;color:#FFCB6B;background:rgba(255,203,107,0.14);padding:5px 12px;border-radius:100px;">⏱ reset dans 2j</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:17px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:17px;margin-bottom:7px;color:#fff;"><span>🥇 Toulouse</span><span style="font-variant-numeric:tabular-nums;">4 812</span></div>
+            <div style="height:15px;border-radius:100px;background:rgba(255,255,255,0.08);"><div style="width:100%;height:100%;border-radius:100px;background:#F4A722;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:17px;margin-bottom:7px;color:#fff;"><span>🥈 Lyon</span><span style="font-variant-numeric:tabular-nums;">4 530</span></div>
+            <div style="height:15px;border-radius:100px;background:rgba(255,255,255,0.08);"><div style="width:94%;height:100%;border-radius:100px;background:#FF8A3D;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:17px;margin-bottom:7px;color:#fff;"><span>🥉 Bordeaux</span><span style="font-variant-numeric:tabular-nums;">3 990</span></div>
+            <div style="height:15px;border-radius:100px;background:rgba(255,255,255,0.08);"><div style="width:83%;height:100%;border-radius:100px;background:#FF6A3D;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:16px;margin-bottom:7px;color:#C9B493;"><span>4 · Lille</span><span style="font-variant-numeric:tabular-nums;">3 410</span></div>
+            <div style="height:13px;border-radius:100px;background:rgba(255,255,255,0.08);"><div style="width:71%;height:100%;border-radius:100px;background:#1AA3D6;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:16px;margin-bottom:7px;color:#C9B493;"><span>5 · Rennes</span><span style="font-variant-numeric:tabular-nums;">2 875</span></div>
+            <div style="height:13px;border-radius:100px;background:rgba(255,255,255,0.08);"><div style="width:60%;height:100%;border-radius:100px;background:#1AA3D6;"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:22px;background:linear-gradient(120deg,#3A230F,#5A3410);border-radius:16px;padding:16px 18px;">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px;color:#FFCB6B;">⚔️ Derby du week-end</div>
+          <div style="font-size:14px;font-weight:500;color:#E7D4B5;margin-top:3px;">Bordeaux affronte Toulouse. À toi de faire pencher la balance.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OFFRES ===== -->
+  <section id="offres" style="background:#FFFBF2;padding:96px 26px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="text-align:center;max-width:680px;margin:0 auto 18px;">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;">Les offres</div>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;line-height:1.02;letter-spacing:-0.03em;margin-top:12px;text-wrap:balance;">Gratuit pour boire. Payant pour frimer.</h2>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:9px;background:#241308;color:#FFCB6B;font-weight:800;font-size:14px;padding:9px 18px;border-radius:100px;margin:0 auto 44px;font-family:'Bricolage Grotesque',sans-serif;text-align:center;">🚫 Zéro publicité. Pour toujours.</div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;">
+        <!-- Fondateur -->
+        <div style="background:#FFF4E0;border-radius:26px;padding:30px;border:1px solid #F0E2C6;display:flex;flex-direction:column;">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#B07A30;">La rareté</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:27px;margin-top:8px;">Membre Fondateur</h3>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;margin-top:14px;color:#2A1206;">Achat unique</div>
+          <p style="font-size:15px;font-weight:500;color:#6A573C;margin-top:10px;line-height:1.5;flex:1;">Un badge numéroté et introuvable. Les 1 023 OG l'ont gratuitement ; les nouveaux veulent le leur — un statut « Early » vérifié, jamais le numéro de fondateur.</p>
+          <div style="margin-top:18px;background:linear-gradient(120deg,#2A1A0D,#5A3410);border-radius:16px;padding:16px 18px;color:#fff;">
+            <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#FFCB6B;">Membre Fondateur</div>
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;margin-top:2px;">N° 0457</div>
+          </div>
+        </div>
+
+        <!-- Pinte+ featured -->
+        <div style="background:#FF6A3D;border-radius:26px;padding:32px 30px;display:flex;flex-direction:column;box-shadow:0 26px 54px rgba(255,106,61,0.36);position:relative;transform:translateY(-8px);">
+          <span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#241308;color:#FFCB6B;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;border-radius:100px;white-space:nowrap;">★ Le plus aimé</span>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#FFE3D6;">L'abonnement</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:27px;margin-top:8px;color:#fff;">Pinte+</h3>
+          <div style="display:flex;align-items:baseline;gap:6px;margin-top:14px;color:#fff;">
+            <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;letter-spacing:-0.02em;">2,99 €</span>
+            <span style="font-weight:700;font-size:16px;color:#FFE3D6;">/ mois</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:11px;margin-top:18px;flex:1;">
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:15px;"><span style="color:#FFE3D6;">✓</span> Stats détaillées &amp; historique complet</div>
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:15px;"><span style="color:#FFE3D6;">✓</span> Badges exclusifs &amp; avatar custom</div>
+            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:15px;"><span style="color:#FFE3D6;">✓</span> Représenter ta ville aux évènements</div>
+          </div>
+          <a href="#top" style="text-decoration:none;text-align:center;margin-top:20px;background:#fff;color:#FF5A2D;font-weight:800;font-size:17px;padding:15px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;">Passer à Pinte+</a>
+        </div>
+
+        <!-- Cosmétiques -->
+        <div style="background:#FFF4E0;border-radius:26px;padding:30px;border:1px solid #F0E2C6;display:flex;flex-direction:column;">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#1AA3D6;">Le style</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:27px;margin-top:8px;">Cosmétiques</h3>
+          <div style="display:flex;align-items:baseline;gap:6px;margin-top:14px;">
+            <span style="font-weight:700;font-size:16px;color:#6A573C;">dès</span>
+            <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;letter-spacing:-0.02em;color:#2A1206;">0,99 €</span>
+          </div>
+          <p style="font-size:15px;font-weight:500;color:#6A573C;margin-top:10px;line-height:1.5;flex:1;">Cadres de photo thématiques, couleurs de ta ville, verres animés. Zéro impact sur l'expérience des autres — juste pour le plaisir.</p>
+          <div style="display:flex;gap:10px;margin-top:18px;">
+            <span style="flex:1;height:46px;border-radius:13px;background:repeating-linear-gradient(45deg,#F6D9BF 0 10px,#FCE7D4 10px 20px);border:2px solid #FF6A3D;"></span>
+            <span style="flex:1;height:46px;border-radius:13px;background:repeating-linear-gradient(45deg,#CFE6F0 0 10px,#E1F0F7 10px 20px);border:2px solid #1AA3D6;"></span>
+            <span style="flex:1;height:46px;border-radius:13px;background:repeating-linear-gradient(45deg,#F3E6CE 0 10px,#EAD7B4 10px 20px);border:2px solid #F4A722;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" style="background:#FFF4E0;padding:96px 26px;">
+    <div style="max-width:760px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;">Les questions</div>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;line-height:1.02;letter-spacing:-0.03em;margin-top:12px;">Tout ce que tu te demandes</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+          <div onClick="{{ f.toggle }}" style="background:#FFFBF2;border:1px solid #F0E2C6;border-radius:20px;padding:22px 26px;cursor:pointer;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;">
+              <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;color:#2A1A0D;">{{ f.q }}</span>
+              <span style="flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:{{ f.iconBg }};color:{{ f.iconColor }};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;font-family:'Bricolage Grotesque',sans-serif;">{{ f.sign }}</span>
+            </div>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:16px;font-weight:500;color:#6A573C;margin-top:14px;line-height:1.6;text-wrap:pretty;">{{ f.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER CTA ===== -->
+  <footer style="background:#1A1006;color:#FFF4E0;padding:80px 26px 40px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="background:radial-gradient(circle at 50% 0%,#3A230F,#241308);border-radius:32px;padding:60px 40px;text-align:center;border:1px solid rgba(255,203,107,0.15);">
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1.0;letter-spacing:-0.03em;color:#fff;text-wrap:balance;">Ta première pinte<br>nous rapproche du million.</h2>
+        <p style="font-size:18px;font-weight:600;color:#D9C3A6;margin-top:16px;">Rejoins le mouvement. Choisis ta ville. Lève ton verre.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:13px;margin-top:30px;flex-wrap:wrap;">
+          <a href="#top" style="text-decoration:none;background:#FF6A3D;color:#fff;font-weight:800;font-size:17px;padding:15px 26px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;box-shadow:0 14px 30px rgba(255,106,61,0.4);">🍎 App Store</a>
+          <a href="#top" style="text-decoration:none;background:#fff;color:#241308;font-weight:800;font-size:17px;padding:15px 26px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;">▶ Google Play</a>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:48px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <span style="width:38px;height:38px;border-radius:11px;background:#FF6A3D;display:flex;align-items:center;justify-content:center;font-size:21px;">🍺</span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;color:#fff;">Le Million de Pintes</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <a href="#top" style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:18px;text-decoration:none;">📸</a>
+          <a href="#top" style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:18px;text-decoration:none;">🎵</a>
+          <a href="#top" style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:18px;text-decoration:none;">𝕏</a>
+          <a href="#top" style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:18px;text-decoration:none;">💬</a>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;">
+        <span style="font-size:14px;font-weight:500;color:#9A8463;">© 2026 Le Million de Pintes · L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</span>
+        <div style="display:flex;gap:20px;">
+          <a href="#top" style="text-decoration:none;font-size:14px;font-weight:600;color:#C9B493;">Mentions légales</a>
+          <a href="#top" style="text-decoration:none;font-size:14px;font-weight:600;color:#C9B493;">Confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startTotal&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:743219,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:999999,&quot;section&quot;:&quot;Compteur&quot;},&quot;tickerOn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Compteur&quot;},&quot;tickerSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2600,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:600,&quot;max&quot;:6000,&quot;step&quot;:200,&quot;unit&quot;:&quot;ms&quot;,&quot;section&quot;:&quot;Compteur&quot;}}">
+class Component extends DCLogic {
+  state = {
+    total: (this.props && this.props.startTotal != null) ? this.props.startTotal : 743219,
+    openFaq: 0,
+  };
+
+  componentDidMount() {
+    const on = (this.props.tickerOn == null) ? true : this.props.tickerOn;
+    if (on) {
+      const speed = (this.props.tickerSpeed != null) ? this.props.tickerSpeed : 2600;
+      this._t = setInterval(() => {
+        this.setState(s => ({ total: s.total + (1 + Math.floor(Math.random() * 3)) }));
+      }, speed);
+    }
+  }
+  componentWillUnmount() { if (this._t) clearInterval(this._t); }
+
+  toggleFaq(i) {
+    this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i }));
+  }
+
+  renderVals() {
+    const total = this.state.total;
+    const goal = 1000000;
+    const totalStr = total.toLocaleString('fr-FR');
+    const pct = total / goal * 100;
+    const progressPct = pct.toFixed(1).replace('.', ',') + ' %';
+    const progressBar = Math.min(100, pct).toFixed(2) + '%';
+    const remainingStr = Math.max(0, goal - total).toLocaleString('fr-FR');
+
+    const raw = [
+      { q: "C'est quoi, Le Million de Pintes ?", a: "Un défi collectif né entre potes : boire 1 000 000 de pintes ensemble. Chaque pinte prise en photo compte pour +1 dans un compteur mondial qui grimpe en temps réel. Ce n'est pas une course perso, c'est une œuvre commune." },
+      { q: "Comment je compte une pinte ?", a: "Tu prends ta pinte en photo dans l'app. Elle est numérotée et ajoutée au fil de la communauté. La photo, c'est ta preuve — et ton +1 vers le million." },
+      { q: "C'est payant ?", a: "Non. Boire, compter, voir le fil et jouer à la guerre des villes : tout est gratuit. Les options payantes (Pinte+, Membre Fondateur, cosmétiques) sont là pour frimer, pas pour débloquer le jeu. Et surtout : zéro publicité." },
+      { q: "C'est quoi la guerre des villes ?", a: "Ta ville monte d'un point à chaque pinte. Le classement se remet à zéro chaque jour et chaque semaine, et des derbys opposent deux villes le temps d'un week-end. Au-dessus des villes, il y a les régions et les pays." },
+      { q: "Comment vous évitez la triche ?", a: "La photo est obligatoire pour garder le compteur crédible. Le niveau de validation est en cours d'affinage — entre réactions de la communauté, vérification légère et contrôle des photos." },
+      { q: "Quand est-ce que l'app sort ?", a: "On commence par la France. D'abord une beta avec les 1 023 membres fondateurs du groupe d'origine, puis le lancement public. L'architecture est pensée pour scaler à l'international dès le jour 1." },
+    ];
+    const faqs = raw.map((f, i) => {
+      const open = this.state.openFaq === i;
+      return {
+        q: f.q, a: f.a, open,
+        sign: open ? '−' : '+',
+        iconBg: open ? '#FF6A3D' : '#FFE3D6',
+        iconColor: open ? '#ffffff' : '#FF6A3D',
+        toggle: () => this.toggleFaq(i),
+      };
+    });
+
+    return { totalStr, progressPct, progressBar, remainingStr, faqs };
+  }
+}
+</script>
+</body>
+</html>

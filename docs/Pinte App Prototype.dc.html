@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body { margin: 0; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.35; transform:scale(0.7); } }
+  @keyframes pop { 0% { transform:scale(0.4); opacity:0; } 60% { transform:scale(1.12); } 100% { transform:scale(1); opacity:1; } }
+  @keyframes shimmer { 0% { transform:translateX(-100%);} 100% { transform:translateX(100%);} }
+</style>
+</helmet>
+
+<div style="width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px;background:radial-gradient(circle at 50% 12%, #FFD9A0 0%, #FFB36B 55%, #FF8C4D 100%);font-family:'Hanken Grotesk',system-ui,sans-serif;">
+
+  <div style="width:392px;height:846px;background:#241308;border-radius:56px;padding:13px;box-shadow:0 40px 90px rgba(74,28,10,0.45), inset 0 0 0 2px rgba(255,255,255,0.06);">
+    <div style="position:relative;width:100%;height:100%;background:#FFF4E0;border-radius:44px;overflow:hidden;display:flex;flex-direction:column;color:#2A1A0D;">
+
+      <!-- STATUS BAR -->
+      <div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 28px 6px;font-weight:700;font-size:15px;color:#2A1A0D;">
+        <span>21:42</span>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <span style="font-size:12px;letter-spacing:1px;">●●●</span>
+          <span style="width:24px;height:12px;border:1.5px solid #2A1A0D;border-radius:3px;position:relative;display:inline-block;"><span style="position:absolute;inset:1.5px;width:70%;background:#2A1A0D;border-radius:1px;"></span></span>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div style="flex:1 1 auto;overflow-y:auto;overflow-x:hidden;">
+
+        <!-- ACCUEIL -->
+        <sc-if value="{{ isAccueil }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:24px 24px 30px;">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;">
+              <span style="width:11px;height:11px;border-radius:50%;background:#FF3B30;animation:pulse 1.4s ease-in-out infinite;"></span>
+              <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#FF6A3D;">En direct</span>
+            </div>
+            <div style="font-size:15px;font-weight:600;color:#9A865F;margin-bottom:4px;">Pintes bues par la communauté</div>
+            <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:66px;line-height:0.94;letter-spacing:-0.03em;color:#2A1A0D;">{{ totalStr }}</div>
+            <div style="font-weight:700;font-size:17px;color:#B89A6E;margin-top:4px;">/ 1 000 000 — l'objectif</div>
+            <div style="margin-top:18px;width:100%;height:16px;border-radius:100px;background:#ECDCBF;overflow:hidden;">
+              <div style="height:100%;border-radius:100px;background:linear-gradient(90deg,#F4A722,#FF6A3D);width:{{ progressPct }};"></div>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:22px;">
+              <div style="flex:1;background:#FFFBF2;border-radius:18px;padding:16px 18px;">
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;color:#F4A722;">{{ myCount }}</div>
+                <div style="font-size:13px;font-weight:600;color:#9A865F;">tes pintes</div>
+              </div>
+              <div style="flex:1;background:#FFFBF2;border-radius:18px;padding:16px 18px;">
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;color:#FF6A3D;">{{ streak }} 🔥</div>
+                <div style="font-size:13px;font-weight:600;color:#9A865F;">jours d'affilée</div>
+              </div>
+            </div>
+            <div onClick="{{ setVilles }}" style="margin-top:12px;background:#1AA3D6;border-radius:18px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:#fff;">
+              <div>
+                <div style="font-size:13px;font-weight:600;opacity:0.85;">Ta ville cette semaine</div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;">📍 Toulouse · 3<sup>e</sup></div>
+              </div>
+              <span style="font-size:26px;font-weight:800;">›</span>
+            </div>
+            <div onClick="{{ openCapture }}" style="margin-top:20px;background:#FF6A3D;border-radius:20px;padding:20px;text-align:center;cursor:pointer;box-shadow:0 12px 26px rgba(255,106,61,0.34);">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;color:#fff;">🍺 Ajoute ta pinte</div>
+              <div style="font-size:14px;font-weight:600;color:#FFE3D6;margin-top:2px;">+1 vers le million</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- FIL -->
+        <sc-if value="{{ isFil }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:20px 22px 30px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;letter-spacing:-0.02em;">Le fil</h2>
+              <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px;color:#FF6A3D;background:#FFE3D6;padding:6px 14px;border-radius:100px;">{{ totalStr }}</span>
+            </div>
+            <sc-for list="{{ feed }}" as="p" hint-placeholder-count="4">
+              <div style="margin-bottom:20px;">
+                <div style="position:relative;width:100%;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:{{ p.bg }};">
+                  <span style="position:absolute;top:12px;left:12px;background:rgba(42,18,6,0.78);color:#FFE3C2;font-weight:700;font-size:13px;padding:5px 12px;border-radius:100px;">📍 {{ p.city }}</span>
+                  <span style="position:absolute;bottom:12px;left:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;color:#5A3A1A;background:rgba(255,251,242,0.82);padding:4px 12px;border-radius:100px;">{{ p.numLabel }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:11px;margin-top:11px;">
+                  <span style="width:38px;height:38px;border-radius:50%;background:{{ p.accent }};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;font-family:'Bricolage Grotesque',sans-serif;">{{ p.initial }}</span>
+                  <div style="flex:1;">
+                    <div style="font-weight:700;font-size:16px;color:#2A1A0D;">{{ p.name }}</div>
+                    <div style="font-size:13px;font-weight:500;color:#9A865F;">vient de poser sa pinte</div>
+                  </div>
+                  <div onClick="{{ p.toggle }}" style="display:flex;align-items:center;gap:6px;cursor:pointer;background:{{ p.likeBg }};color:{{ p.likeColor }};padding:7px 14px;border-radius:100px;font-weight:700;font-size:15px;border:1.5px solid {{ p.likeBorder }};">
+                    <span>♥</span><span>{{ p.likes }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- VILLES -->
+        <sc-if value="{{ isVilles }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:20px 22px 30px;">
+            <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;letter-spacing:-0.02em;line-height:1.05;">La guerre<br>des villes</h2>
+            <div style="display:flex;gap:8px;margin-top:16px;margin-bottom:22px;">
+              <span style="font-weight:700;font-size:14px;color:#9A865F;background:#FFFBF2;padding:8px 18px;border-radius:100px;">Aujourd'hui</span>
+              <span style="font-weight:700;font-size:14px;color:#fff;background:#2A1A0D;padding:8px 18px;border-radius:100px;">Cette semaine</span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:18px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:17px;margin-bottom:7px;"><span>🥇 Toulouse <span style="font-size:12px;color:#fff;background:#FF6A3D;padding:2px 9px;border-radius:100px;margin-left:4px;">ta ville</span></span><span>4 812</span></div>
+                <div style="height:16px;border-radius:100px;background:#ECDCBF;"><div style="width:100%;height:100%;border-radius:100px;background:#F4A722;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:17px;margin-bottom:7px;"><span>🥈 Lyon</span><span>4 530</span></div>
+                <div style="height:16px;border-radius:100px;background:#ECDCBF;"><div style="width:94%;height:100%;border-radius:100px;background:#FF8A3D;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:700;font-size:17px;margin-bottom:7px;"><span>🥉 Bordeaux</span><span>3 990</span></div>
+                <div style="height:16px;border-radius:100px;background:#ECDCBF;"><div style="width:83%;height:100%;border-radius:100px;background:#FF6A3D;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:16px;color:#6A573C;margin-bottom:7px;"><span>4 · Lille</span><span>3 410</span></div>
+                <div style="height:14px;border-radius:100px;background:#ECDCBF;"><div style="width:71%;height:100%;border-radius:100px;background:#1AA3D6;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:16px;color:#6A573C;margin-bottom:7px;"><span>5 · Rennes</span><span>2 875</span></div>
+                <div style="height:14px;border-radius:100px;background:#ECDCBF;"><div style="width:60%;height:100%;border-radius:100px;background:#1AA3D6;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:16px;color:#6A573C;margin-bottom:7px;"><span>6 · Montpellier</span><span>2 240</span></div>
+                <div style="height:14px;border-radius:100px;background:#ECDCBF;"><div style="width:47%;height:100%;border-radius:100px;background:#1AA3D6;"></div></div>
+              </div>
+            </div>
+            <div style="margin-top:24px;background:#241308;border-radius:18px;padding:18px 20px;color:#FFE3C2;">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;color:#FFCB6B;">⚔️ Derby du week-end</div>
+              <div style="font-size:15px;font-weight:500;margin-top:4px;">Bordeaux affronte Toulouse. À toi de faire pencher la balance.</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- PROFIL -->
+        <sc-if value="{{ isProfil }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:24px 22px 30px;">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:74px;height:74px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFC861,#FF6A3D);"></div>
+              <div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;">Maxime D.</div>
+                <div style="font-weight:700;font-size:15px;color:#1AA3D6;">📍 Toulouse</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:22px;">
+              <div style="flex:1;background:#FFFBF2;border-radius:16px;padding:14px;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;color:#F4A722;">{{ myCount }}</div><div style="font-size:12px;font-weight:600;color:#9A865F;">pintes</div></div>
+              <div style="flex:1;background:#FFFBF2;border-radius:16px;padding:14px;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;color:#FF6A3D;">{{ streak }}</div><div style="font-size:12px;font-weight:600;color:#9A865F;">jours</div></div>
+              <div style="flex:1;background:#FFFBF2;border-radius:16px;padding:14px;text-align:center;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;color:#1AA3D6;">12<sup>e</sup></div><div style="font-size:12px;font-weight:600;color:#9A865F;">ta ville</div></div>
+            </div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9A865F;margin:24px 0 12px;">Badges</div>
+            <div style="display:flex;gap:12px;">
+              <div style="width:56px;height:56px;border-radius:50%;background:#241308;color:#FFCB6B;display:flex;align-items:center;justify-content:center;font-size:24px;">🍺</div>
+              <div style="width:56px;height:56px;border-radius:50%;background:#1AA3D6;display:flex;align-items:center;justify-content:center;font-size:24px;">🏆</div>
+              <div style="width:56px;height:56px;border-radius:50%;background:#FF6A3D;display:flex;align-items:center;justify-content:center;font-size:24px;">⚡</div>
+              <div style="width:56px;height:56px;border-radius:50%;background:#ECDCBF;color:#9A865F;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;font-family:'Bricolage Grotesque',sans-serif;">+8</div>
+            </div>
+            <div style="margin-top:24px;background:linear-gradient(120deg,#2A1A0D,#5A3410);border-radius:18px;padding:20px;position:relative;overflow:hidden;">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:#FFCB6B;">Membre Fondateur</div>
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;color:#fff;margin-top:4px;">N° 0457</div>
+              <div style="font-size:13px;color:#D9C3A6;margin-top:2px;">Un des 1 023 premiers. Introuvable.</div>
+            </div>
+            <div style="margin-top:14px;background:#F4A722;border-radius:18px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+              <div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;color:#2A1206;">Passer à Pinte+</div>
+                <div style="font-size:13px;font-weight:600;color:#7A4310;">Stats, badges exclus, avatar custom</div>
+              </div>
+              <span style="font-weight:800;font-size:18px;color:#2A1206;background:#FFF4E0;padding:8px 14px;border-radius:100px;">2,99 €</span>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <!-- BOTTOM NAV -->
+      <div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-around;padding:12px 18px 26px;background:#FFFBF2;border-top:1px solid #EFE2C8;position:relative;">
+        <div onClick="{{ setAccueil }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;width:56px;">
+          <span style="font-size:21px;">🏠</span><span style="font-size:11px;font-weight:700;color:{{ accueilColor }};">Accueil</span>
+        </div>
+        <div onClick="{{ setFil }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;width:56px;">
+          <span style="font-size:21px;">🍻</span><span style="font-size:11px;font-weight:700;color:{{ filColor }};">Fil</span>
+        </div>
+        <div onClick="{{ openCapture }}" style="display:flex;flex-direction:column;align-items:center;cursor:pointer;width:62px;transform:translateY(-16px);">
+          <span style="width:58px;height:58px;border-radius:50%;background:#FF6A3D;color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;box-shadow:0 10px 22px rgba(255,106,61,0.4);">+</span>
+        </div>
+        <div onClick="{{ setVilles }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;width:56px;">
+          <span style="font-size:21px;">🏆</span><span style="font-size:11px;font-weight:700;color:{{ villesColor }};">Villes</span>
+        </div>
+        <div onClick="{{ setProfil }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;width:56px;">
+          <span style="font-size:21px;">👤</span><span style="font-size:11px;font-weight:700;color:{{ profilColor }};">Profil</span>
+        </div>
+      </div>
+
+      <!-- CAPTURE OVERLAY -->
+      <sc-if value="{{ sheetCapture }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:#14110D;display:flex;flex-direction:column;z-index:20;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:24px 24px 8px;">
+            <span onClick="{{ closeSheet }}" style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;">✕</span>
+            <span style="color:#FFCB6B;font-weight:700;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;font-family:'Bricolage Grotesque',sans-serif;">Nouvelle pinte</span>
+            <span style="width:40px;"></span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:0 40px;">
+            <div style="width:230px;height:300px;border-radius:24px;position:relative;background:repeating-linear-gradient(45deg,#2A2017 0 18px,#332619 18px 36px);">
+              <span style="position:absolute;top:-2px;left:-2px;width:42px;height:42px;border-top:4px solid #FFCB6B;border-left:4px solid #FFCB6B;border-radius:14px 0 0 0;"></span>
+              <span style="position:absolute;top:-2px;right:-2px;width:42px;height:42px;border-top:4px solid #FFCB6B;border-right:4px solid #FFCB6B;border-radius:0 14px 0 0;"></span>
+              <span style="position:absolute;bottom:-2px;left:-2px;width:42px;height:42px;border-bottom:4px solid #FFCB6B;border-left:4px solid #FFCB6B;border-radius:0 0 0 14px;"></span>
+              <span style="position:absolute;bottom:-2px;right:-2px;width:42px;height:42px;border-bottom:4px solid #FFCB6B;border-right:4px solid #FFCB6B;border-radius:0 0 14px 0;"></span>
+              <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;">🍺</span>
+            </div>
+            <div style="color:#fff;font-weight:600;font-size:17px;text-align:center;">Cadre ta pinte, puis appuie<br>pour la valider.</div>
+          </div>
+          <div style="display:flex;justify-content:center;padding:0 0 44px;">
+            <span onClick="{{ confirmPhoto }}" style="width:84px;height:84px;border-radius:50%;background:#fff;border:5px solid rgba(255,255,255,0.35);cursor:pointer;display:block;box-shadow:0 0 0 4px #14110D, 0 0 0 7px rgba(255,255,255,0.4);"></span>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- SUCCESS OVERLAY -->
+      <sc-if value="{{ sheetSuccess }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,#FFD9A0,#FF8C4D);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px;z-index:20;color:#2A1206;">
+          <div style="font-size:88px;animation:pop 0.5s ease-out both;">🍺</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:62px;line-height:1;margin-top:6px;animation:pop 0.5s ease-out 0.08s both;">+1</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;margin-top:14px;">Pinte n° {{ nextNum }} validée !</div>
+          <div style="font-size:17px;font-weight:600;color:#5A2E0C;margin-top:8px;max-width:280px;">Le compteur grimpe, et Toulouse gagne +1 dans la guerre des villes.</div>
+          <div onClick="{{ goFeed }}" style="margin-top:30px;background:#2A1206;color:#FFCB6B;font-weight:800;font-size:18px;padding:16px 36px;border-radius:100px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;">Voir le fil</div>
+          <div onClick="{{ closeSheet }}" style="margin-top:14px;font-weight:700;font-size:16px;color:#7A4310;cursor:pointer;">Continuer</div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:560,&quot;height&quot;:940},&quot;startTotal&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:743219,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:999999,&quot;section&quot;:&quot;Données&quot;},&quot;tickerOn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Données&quot;}}">
+class Component extends DCLogic {
+  state = {
+    tab: 'accueil',
+    total: (this.props && this.props.startTotal != null) ? this.props.startTotal : 743219,
+    myCount: 312,
+    streak: 27,
+    sheet: null,
+    nextNum: '743 220',
+    feed: [
+      { id: 1, name: 'Léa M.', city: 'Bordeaux', num: '743 219', tone: 'amber', likes: 12, liked: false },
+      { id: 2, name: 'Hugo P.', city: 'Lyon', num: '743 218', tone: 'sky', likes: 8, liked: false },
+      { id: 3, name: 'Inès R.', city: 'Toulouse', num: '743 217', tone: 'coral', likes: 21, liked: false },
+      { id: 4, name: 'Samy K.', city: 'Lille', num: '743 216', tone: 'amber', likes: 5, liked: false },
+      { id: 5, name: 'Chloé B.', city: 'Rennes', num: '743 215', tone: 'sky', likes: 9, liked: false },
+    ],
+  };
+
+  componentDidMount() {
+    const on = (this.props.tickerOn == null) ? true : this.props.tickerOn;
+    if (on) {
+      this._t = setInterval(() => {
+        this.setState(s => ({ total: s.total + (1 + Math.floor(Math.random() * 2)) }));
+      }, 3200);
+    }
+  }
+  componentWillUnmount() { if (this._t) clearInterval(this._t); }
+
+  setTab(t) { this.setState({ tab: t }); }
+  openCapture() { this.setState({ sheet: 'capture' }); }
+  closeSheet() { this.setState({ sheet: null }); }
+  goFeed() { this.setState({ sheet: null, tab: 'fil' }); }
+
+  confirmPhoto() {
+    this.setState(s => {
+      const num = s.total + 1;
+      const numStr = num.toLocaleString('fr-FR');
+      const item = { id: Date.now(), name: 'Toi', city: 'Toulouse', num: numStr, tone: 'coral', likes: 0, liked: false };
+      return { total: num, myCount: s.myCount + 1, nextNum: numStr, feed: [item, ...s.feed], sheet: 'success' };
+    });
+  }
+
+  toggleLike(id) {
+    this.setState(s => ({
+      feed: s.feed.map(p => p.id === id ? { ...p, liked: !p.liked, likes: p.likes + (p.liked ? -1 : 1) } : p),
+    }));
+  }
+
+  renderVals() {
+    const total = this.state.total;
+    const totalStr = total.toLocaleString('fr-FR');
+    const progressPct = Math.min(100, total / 1000000 * 100).toFixed(1) + '%';
+    const toneMap = {
+      amber: { bg: 'repeating-linear-gradient(45deg,#E9D8BC 0 16px,#F3E6CE 16px 32px)', accent: '#F4A722' },
+      coral: { bg: 'repeating-linear-gradient(45deg,#F6D9BF 0 16px,#FCE7D4 16px 32px)', accent: '#FF6A3D' },
+      sky: { bg: 'repeating-linear-gradient(45deg,#CFE6F0 0 16px,#E1F0F7 16px 32px)', accent: '#1AA3D6' },
+    };
+    const feed = this.state.feed.map(p => {
+      const tm = toneMap[p.tone] || toneMap.amber;
+      return {
+        ...p,
+        bg: tm.bg,
+        accent: tm.accent,
+        initial: p.name.charAt(0),
+        numLabel: '#' + p.num,
+        likeBg: p.liked ? tm.accent : '#FFFBF2',
+        likeColor: p.liked ? '#ffffff' : '#9A865F',
+        likeBorder: p.liked ? tm.accent : '#ECDCBF',
+        toggle: () => this.toggleLike(p.id),
+      };
+    });
+    const active = '#FF6A3D', idle = '#B6A081';
+    return {
+      totalStr, progressPct,
+      myCount: this.state.myCount, streak: this.state.streak, nextNum: this.state.nextNum,
+      isAccueil: this.state.tab === 'accueil',
+      isFil: this.state.tab === 'fil',
+      isVilles: this.state.tab === 'villes',
+      isProfil: this.state.tab === 'profil',
+      sheetCapture: this.state.sheet === 'capture',
+      sheetSuccess: this.state.sheet === 'success',
+      accueilColor: this.state.tab === 'accueil' ? active : idle,
+      filColor: this.state.tab === 'fil' ? active : idle,
+      villesColor: this.state.tab === 'villes' ? active : idle,
+      profilColor: this.state.tab === 'profil' ? active : idle,
+      feed,
+      setAccueil: () => this.setTab('accueil'),
+      setFil: () => this.setTab('fil'),
+      setVilles: () => this.setTab('villes'),
+      setProfil: () => this.setTab('profil'),
+      openCapture: () => this.openCapture(),
+      closeSheet: () => this.closeSheet(),
+      confirmPhoto: () => this.confirmPhoto(),
+      goFeed: () => this.goFeed(),
+    };
+  }
+}
+</script>
+</body>
+</html>

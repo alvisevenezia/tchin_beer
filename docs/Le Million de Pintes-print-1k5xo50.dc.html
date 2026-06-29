@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style data-omelette-print-defaults>
+@media print {
+  @page { margin: 0.5in; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  figure, table, pre, blockquote, img, svg, tr, [class~="card" i] { break-inside: avoid; }
+  img, svg { max-width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body { margin: 0; background: #1a0d05; }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+  @keyframes rise { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+<!-- 01 COVER -->
+<section data-label="Couverture" data-screen-label="01" data-speaker-notes="Le pitch en une image : une appli qui transforme un défi WhatsApp en mouvement collectif." style="box-sizing:border-box;padding:96px 110px;background:radial-gradient(circle at 74% 26%, #FFC861 0%, #FF9A3D 40%, #FF5E3A 100%);color:#2A1206;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;">
+  <div style="position:absolute;bottom:-90px;left:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.18);animation:floaty 7s ease-in-out infinite;"></div>
+  <div style="position:absolute;bottom:120px;left:240px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,0.22);animation:floaty 5s ease-in-out infinite;"></div>
+  <div style="position:absolute;bottom:40px;left:400px;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,0.16);animation:floaty 6.2s ease-in-out infinite;"></div>
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#5A2509;">Concept produit · Été 2026</div>
+  <div>
+    <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:158px;line-height:0.92;letter-spacing:-0.03em;">Le Million<br>de Pintes</h1>
+    <p style="font-size:38px;font-weight:500;max-width:1000px;margin-top:34px;color:#3A1808;">Une appli, une communauté, et un objectif délicieusement absurde.</p>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;">
+    <span style="background:#2A1206;color:#FFCB6B;padding:12px 28px;border-radius:100px;">0</span>
+    <span style="font-size:34px;">vers</span>
+    <span style="background:#2A1206;color:#FFCB6B;padding:12px 28px;border-radius:100px;">1 000 000</span>
+  </div>
+</section>
+
+<!-- 02 ORIGINE -->
+<section data-label="L'origine" data-screen-label="02" data-speaker-notes="Raconter l'histoire vraie du groupe WhatsApp : le défi, la photo numérotée." style="box-sizing:border-box;padding:90px 110px;background:#FFF4E0;color:#2A1A0D;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;margin-bottom:24px;">L'origine</div>
+  <div style="display:flex;gap:90px;align-items:flex-start;">
+    <div style="flex:1.2;">
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:84px;line-height:1.0;letter-spacing:-0.02em;">Tout commence<br>sur WhatsApp</h2>
+      <p style="font-size:36px;line-height:1.45;max-width:760px;margin-top:38px;color:#4A3522;">Un groupe d'amis s'est lancé un défi un peu fou : boire un million de pintes, ensemble. Chaque pinte est immortalisée par une photo, numérotée, et envoyée au groupe.</p>
+    </div>
+    <div style="flex:0.9;display:flex;flex-direction:column;gap:30px;">
+      <div style="display:flex;align-items:baseline;gap:24px;border-bottom:2px solid #E7D4B0;padding-bottom:24px;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:96px;color:#F4A722;line-height:1;">1 023</span>
+        <span style="font-size:30px;font-weight:600;color:#7A6447;">membres aujourd'hui</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:24px;border-bottom:2px solid #E7D4B0;padding-bottom:24px;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:96px;color:#FF6A3D;line-height:1;">1 M</span>
+        <span style="font-size:30px;font-weight:600;color:#7A6447;">pintes, l'objectif</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:24px;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:96px;color:#1AA3D6;line-height:1;">1</span>
+        <span style="font-size:30px;font-weight:600;color:#7A6447;">photo par pinte, numérotée</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 GROUPE PLEIN -->
+<section data-label="Le groupe est plein" data-screen-label="03" data-speaker-notes="WhatsApp plafonne à 1024. Le mouvement a un plafond de verre. Trois limites concrètes." style="box-sizing:border-box;padding:90px 110px;background:#FFF4E0;color:#2A1A0D;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="display:flex;gap:80px;align-items:center;">
+    <div style="flex:1;">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;margin-bottom:22px;">Le déclic</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:88px;line-height:1.0;letter-spacing:-0.02em;">Le groupe<br>est plein</h2>
+      <div style="margin-top:46px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:130px;color:#2A1A0D;line-height:1;">1024<span style="color:#C9B48C;">/1024</span></div>
+      <div style="margin-top:8px;font-size:30px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#FF6A3D;">— complet —</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:34px;">
+      <div style="display:flex;gap:26px;align-items:flex-start;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:44px;color:#F4A722;">01</span>
+        <span style="font-size:34px;line-height:1.35;font-weight:500;color:#4A3522;">Plus aucune place pour les nouveaux venus.</span>
+      </div>
+      <div style="display:flex;gap:26px;align-items:flex-start;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:44px;color:#F4A722;">02</span>
+        <span style="font-size:34px;line-height:1.35;font-weight:500;color:#4A3522;">Les photos se noient dans le flux et disparaissent.</span>
+      </div>
+      <div style="display:flex;gap:26px;align-items:flex-start;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:44px;color:#F4A722;">03</span>
+        <span style="font-size:34px;line-height:1.35;font-weight:500;color:#4A3522;">Aucun classement, aucun jeu, aucune raison de revenir.</span>
+      </div>
+      <p style="font-size:30px;font-style:italic;line-height:1.4;color:#7A6447;margin-top:14px;border-top:2px solid #E7D4B0;padding-top:28px;">WhatsApp a lancé le mouvement. Il ne peut pas le faire grandir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 L'IDEE -->
+<section data-label="L'idée" data-screen-label="04" data-speaker-notes="La proposition de valeur en une ligne. Trois piliers : photo, compteur, fil." style="box-sizing:border-box;padding:96px 110px;background:#241308;color:#FFF4E0;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="position:absolute;top:-100px;right:-60px;width:360px;height:360px;border-radius:50%;background:rgba(244,167,34,0.16);"></div>
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#F4A722;margin-bottom:34px;">L'idée</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:118px;line-height:0.98;letter-spacing:-0.03em;max-width:1500px;">Une pinte = <span style="color:#FFB347;">+1</span><br>vers le million.</h2>
+  <div style="display:flex;gap:60px;margin-top:64px;">
+    <div style="flex:1;border-top:3px solid #F4A722;padding-top:24px;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;color:#FFB347;margin-bottom:10px;">Une photo</div><div style="font-size:28px;line-height:1.4;color:#D9C3A6;">Tu prends ta pinte en photo. C'est ta preuve, et ton +1.</div></div>
+    <div style="flex:1;border-top:3px solid #F4A722;padding-top:24px;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;color:#FFB347;margin-bottom:10px;">Un compteur</div><div style="font-size:28px;line-height:1.4;color:#D9C3A6;">Un total mondial qui grimpe en direct vers 1 000 000.</div></div>
+    <div style="flex:1;border-top:3px solid #F4A722;padding-top:24px;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;color:#FFB347;margin-bottom:10px;">Un fil</div><div style="font-size:28px;line-height:1.4;color:#D9C3A6;">Toutes les pintes, partagées par toute la communauté.</div></div>
+  </div>
+</section>
+
+<!-- 05 LE COMPTEUR -->
+<section data-label="Le compteur" data-screen-label="05" data-speaker-notes="Le cœur émotionnel : une œuvre collective qui monte en temps réel. Chaque jalon est un évènement." style="box-sizing:border-box;padding:90px 110px;background:#F4A722;color:#2A1206;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#A85A14;margin-bottom:20px;">Le cœur du produit</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:60px;line-height:1;letter-spacing:-0.01em;margin-bottom:30px;">Le compteur</h2>
+  <div style="display:flex;align-items:baseline;gap:30px;">
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:210px;line-height:0.86;letter-spacing:-0.04em;">743&nbsp;219</span>
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:58px;color:#7A4310;">/ 1 000 000</span>
+  </div>
+  <div style="margin-top:42px;width:100%;height:34px;border-radius:100px;background:rgba(42,18,6,0.18);overflow:hidden;">
+    <div style="width:74.3%;height:100%;border-radius:100px;background:#2A1206;"></div>
+  </div>
+  <p style="font-size:34px;font-weight:500;line-height:1.4;max-width:1200px;margin-top:38px;color:#5A2E0C;">Une œuvre collective qui monte en temps réel. La 500 000<sup>e</sup>, la 999 999<sup>e</sup> pinte : chaque jalon devient un évènement que toute la commu attend.</p>
+</section>
+
+<!-- 06 COMMENT CA MARCHE -->
+<section data-label="Comment ça marche" data-screen-label="06" data-speaker-notes="La boucle de base en trois temps. Simple, rapide, addictif." style="box-sizing:border-box;padding:90px 110px;background:#FFF4E0;color:#2A1A0D;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;margin-bottom:22px;">La boucle</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:84px;line-height:1;letter-spacing:-0.02em;margin-bottom:72px;">Comment ça marche</h2>
+  <div style="display:flex;gap:64px;">
+    <div style="flex:1;">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:120px;color:#FF6A3D;line-height:0.9;">01</div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:42px;margin-top:20px;">Photographie ta pinte</div>
+      <p style="font-size:30px;line-height:1.4;margin-top:14px;color:#4A3522;">Au bar, en terrasse, en festival. Un cliché, et c'est parti.</p>
+    </div>
+    <div style="flex:1;">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:120px;color:#F4A722;line-height:0.9;">02</div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:42px;margin-top:20px;">Elle s'affiche sur le fil</div>
+      <p style="font-size:30px;line-height:1.4;margin-top:14px;color:#4A3522;">Toute la communauté la voit apparaître, en direct.</p>
+    </div>
+    <div style="flex:1;">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:120px;color:#1AA3D6;line-height:0.9;">03</div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:42px;margin-top:20px;">Le compteur grimpe de +1</div>
+      <p style="font-size:30px;line-height:1.4;margin-top:14px;color:#4A3522;">Le million se rapproche. Et ta ville aussi grimpe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 LE FIL -->
+<section data-label="Le fil commun" data-screen-label="07" data-speaker-notes="Le mur de toutes les pintes : le remplaçant de WhatsApp, en mieux. Réactions, chambrage." style="box-sizing:border-box;padding:90px 110px;background:#FFF4E0;color:#2A1A0D;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;align-items:center;gap:80px;overflow:hidden;">
+  <div style="flex:1.05;">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;margin-bottom:22px;">Le fil</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:80px;line-height:1.0;letter-spacing:-0.02em;">Le mur de<br>toutes les pintes</h2>
+    <p style="font-size:36px;line-height:1.45;max-width:680px;margin-top:36px;color:#4A3522;">Chaque pinte du pays, en direct. On réagit, on encourage, on se chambre entre villes. Le groupe WhatsApp — mais sans plafond et avec un jeu.</p>
+  </div>
+  <div style="flex:0.95;display:flex;justify-content:center;">
+    <div style="width:430px;height:760px;background:#241308;border-radius:52px;padding:18px;box-shadow:0 30px 70px rgba(42,18,6,0.28);">
+      <div style="width:100%;height:100%;background:#FFFBF2;border-radius:38px;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:22px 24px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;color:#2A1A0D;">Le fil</span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;color:#FF6A3D;background:#FFE3D6;padding:5px 12px;border-radius:100px;">743 219</span>
+        </div>
+        <div style="flex:1;padding:6px 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start;">
+          <div style="aspect-ratio:1;border-radius:14px;background:repeating-linear-gradient(45deg,#E9D8BC 0 12px,#F3E6CE 12px 24px);display:flex;align-items:flex-end;padding:10px;font-family:monospace;font-size:12px;color:#9A865F;">#412 901</div>
+          <div style="aspect-ratio:1;border-radius:14px;background:repeating-linear-gradient(45deg,#F6D9BF 0 12px,#FCE7D4 12px 24px);display:flex;align-items:flex-end;padding:10px;font-family:monospace;font-size:12px;color:#B88862;">#412 902</div>
+          <div style="aspect-ratio:1;border-radius:14px;background:repeating-linear-gradient(45deg,#CFE6F0 0 12px,#E1F0F7 12px 24px);display:flex;align-items:flex-end;padding:10px;font-family:monospace;font-size:12px;color:#6FA3BC;">#412 903</div>
+          <div style="aspect-ratio:1;border-radius:14px;background:repeating-linear-gradient(45deg,#E9D8BC 0 12px,#F3E6CE 12px 24px);display:flex;align-items:flex-end;padding:10px;font-family:monospace;font-size:12px;color:#9A865F;">#412 904</div>
+          <div style="aspect-ratio:1;border-radius:14px;background:repeating-linear-gradient(45deg,#F6D9BF 0 12px,#FCE7D4 12px 24px);display:flex;align-items:flex-end;padding:10px;font-family:monospace;font-size:12px;color:#B88862;">#412 905</div>
+          <div style="aspect-ratio:1;border-radius:14px;background:repeating-linear-gradient(45deg,#CFE6F0 0 12px,#E1F0F7 12px 24px);display:flex;align-items:flex-end;padding:10px;font-family:monospace;font-size:12px;color:#6FA3BC;">#412 906</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 GUERRE DES VILLES -->
+<section data-label="La guerre des villes" data-screen-label="08" data-speaker-notes="Le moteur d'engagement : ta ville contre toutes les autres. Reset quotidien et hebdo pour revenir chaque jour." style="box-sizing:border-box;padding:90px 110px;background:#1AA3D6;color:#06283A;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;align-items:center;gap:80px;overflow:hidden;">
+  <div style="flex:1;">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#06283A;margin-bottom:22px;opacity:0.7;">Compétition</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:84px;line-height:1.0;letter-spacing:-0.02em;color:#FFFFFF;">La guerre<br>des villes</h2>
+    <p style="font-size:34px;line-height:1.45;max-width:640px;margin-top:34px;color:#063A52;">Ta ville contre toutes les autres. Le classement est remis à zéro chaque jour <em>et</em> chaque semaine — une nouvelle chance de gagner à chaque réveil.</p>
+  </div>
+  <div style="flex:1;background:#FFFBF2;border-radius:28px;padding:38px 40px;box-shadow:0 24px 60px rgba(6,40,58,0.25);">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:26px;"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;color:#2A1A0D;">Cette semaine</span><span style="font-size:22px;font-weight:600;color:#9A865F;">pintes</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div><div style="display:flex;justify-content:space-between;font-weight:700;font-size:26px;margin-bottom:8px;"><span>🥇 Toulouse</span><span>4 812</span></div><div style="height:18px;border-radius:100px;background:#EDE0C6;"><div style="width:100%;height:100%;border-radius:100px;background:#F4A722;"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-weight:700;font-size:26px;margin-bottom:8px;"><span>🥈 Lyon</span><span>4 530</span></div><div style="height:18px;border-radius:100px;background:#EDE0C6;"><div style="width:94%;height:100%;border-radius:100px;background:#FF8A3D;"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-weight:700;font-size:26px;margin-bottom:8px;"><span>🥉 Bordeaux</span><span>3 990</span></div><div style="height:18px;border-radius:100px;background:#EDE0C6;"><div style="width:83%;height:100%;border-radius:100px;background:#FF6A3D;"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-weight:600;font-size:24px;margin-bottom:8px;color:#6A573C;"><span>4. Lille</span><span>3 410</span></div><div style="height:16px;border-radius:100px;background:#EDE0C6;"><div style="width:71%;height:100%;border-radius:100px;background:#1AA3D6;"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-weight:600;font-size:24px;margin-bottom:8px;color:#6A573C;"><span>5. Rennes</span><span>2 875</span></div><div style="height:16px;border-radius:100px;background:#EDE0C6;"><div style="width:60%;height:100%;border-radius:100px;background:#1AA3D6;"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 REGIONS & DERBYS -->
+<section data-label="Régions & derbys" data-screen-label="09" data-speaker-notes="Garder tout le monde dans le jeu : les régions pour les petites villes, les derbys pour ranimer les rivalités." style="box-sizing:border-box;padding:90px 110px;background:#FFF4E0;color:#2A1A0D;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;margin-bottom:22px;">Toujours dans le jeu</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:84px;line-height:1;letter-spacing:-0.02em;margin-bottom:64px;">Régions & derbys</h2>
+  <div style="display:flex;gap:70px;">
+    <div style="flex:1;border-top:4px solid #F4A722;padding-top:28px;">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;margin-bottom:18px;">Les régions</div>
+      <p style="font-size:33px;line-height:1.45;color:#4A3522;">Une petite ville ne battra jamais Paris au volume. Mais sa région, oui. Chaque pinte compte pour son territoire — personne n'est laissé sur le banc de touche.</p>
+    </div>
+    <div style="flex:1;border-top:4px solid #FF6A3D;padding-top:28px;">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;margin-bottom:18px;">Les derbys</div>
+      <p style="font-size:33px;line-height:1.45;color:#4A3522;">Deux villes, un week-end, un duel programmé. Lyon contre Saint-Étienne, Bordeaux contre Toulouse — de quoi ranimer les vieilles rivalités, pinte à la main.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 PROFIL -->
+<section data-label="Profil & fierté locale" data-screen-label="10" data-speaker-notes="L'identité : total perso, séries, badges, couleurs de la ville. On joue pour soi et pour les siens." style="box-sizing:border-box;padding:90px 110px;background:#FFF4E0;color:#2A1A0D;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;align-items:center;gap:80px;overflow:hidden;">
+  <div style="flex:0.85;display:flex;justify-content:center;">
+    <div style="width:480px;background:#FFFBF2;border-radius:30px;padding:42px;box-shadow:0 24px 60px rgba(42,18,6,0.16);">
+      <div style="display:flex;align-items:center;gap:22px;">
+        <div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFC861,#FF6A3D);"></div>
+        <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;">Maxime D.</div><div style="font-size:22px;font-weight:700;color:#1AA3D6;">📍 Toulouse</div></div>
+      </div>
+      <div style="display:flex;gap:18px;margin-top:30px;">
+        <div style="flex:1;background:#FFF0DC;border-radius:18px;padding:20px;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;color:#F4A722;">312</div><div style="font-size:20px;font-weight:600;color:#7A6447;">pintes</div></div>
+        <div style="flex:1;background:#FFF0DC;border-radius:18px;padding:20px;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;color:#FF6A3D;">27 🔥</div><div style="font-size:20px;font-weight:600;color:#7A6447;">jours d'affilée</div></div>
+      </div>
+      <div style="margin-top:26px;font-size:20px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9A865F;margin-bottom:14px;">Badges</div>
+      <div style="display:flex;gap:14px;">
+        <div style="width:64px;height:64px;border-radius:50%;background:#241308;color:#FFCB6B;display:flex;align-items:center;justify-content:center;font-size:28px;">🍺</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:#1AA3D6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;">🏆</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:#FF6A3D;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;">⚡</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:#EDE0C6;color:#9A865F;display:flex;align-items:center;justify-content:center;font-size:28px;">+8</div>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;margin-bottom:22px;">Identité</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:78px;line-height:1.0;letter-spacing:-0.02em;">Profil &<br>fierté locale</h2>
+    <p style="font-size:35px;line-height:1.45;max-width:640px;margin-top:34px;color:#4A3522;">Ton total, ta série de jours, tes badges, les couleurs de ta ville. On joue pour soi — et pour les siens.</p>
+  </div>
+</section>
+
+<!-- 11 PUBLIC -->
+<section data-label="Notre public" data-screen-label="11" data-speaker-notes="La cible : les étudiants. Connectés, joueurs, fiers de leur ville. L'été comme terrain de jeu." style="box-sizing:border-box;padding:90px 110px;background:#FF6A3D;color:#3A1206;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="position:absolute;top:-80px;right:120px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.16);animation:floaty 6s ease-in-out infinite;"></div>
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#7A2A0E;margin-bottom:22px;">La cible</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:96px;line-height:1.0;letter-spacing:-0.02em;color:#fff;">Pensé pour<br>les étudiants</h2>
+  <div style="display:flex;gap:54px;margin-top:58px;">
+    <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;color:#fff;">Connectés</div><p style="font-size:28px;line-height:1.4;margin-top:12px;color:#5A1F0A;">Le téléphone toujours en main, le réflexe photo déjà acquis.</p></div>
+    <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;color:#fff;">Joueurs</div><p style="font-size:28px;line-height:1.4;margin-top:12px;color:#5A1F0A;">Classements, séries, défis : le langage qu'ils parlent déjà.</p></div>
+    <div style="flex:1;"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;color:#fff;">Fiers de leur ville</div><p style="font-size:28px;line-height:1.4;margin-top:12px;color:#5A1F0A;">Les rivalités entre villes étudiantes existent déjà. On les active.</p></div>
+  </div>
+</section>
+
+<!-- 12 SANS PUB -->
+<section data-label="Rentable sans pub" data-screen-label="12" data-speaker-notes="La philosophie de monétisation : pas de pub, qui casse l'expérience. Une commu passionnée suffit avec de bonnes features payantes." style="box-sizing:border-box;padding:96px 110px;background:#241308;color:#FFF4E0;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#F4A722;margin-bottom:30px;">Modèle économique</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:104px;line-height:0.98;letter-spacing:-0.03em;max-width:1450px;">Rentable, sans<br>une seule pub.</h2>
+  <p style="font-size:38px;line-height:1.45;max-width:1300px;margin-top:44px;color:#D9C3A6;">La pub casse l'expérience et n'a pas sa place ici. Avec une communauté aussi passionnée, quelques fonctionnalités sympas et payantes suffisent largement à dépasser les coûts d'hébergement.</p>
+</section>
+
+<!-- 13 TROIS REVENUS -->
+<section data-label="Trois sources de revenus" data-screen-label="13" data-speaker-notes="Les trois leviers : la rareté du badge Fondateur, l'abonnement Pinte+, les cosmétiques. Aucun ne dégrade l'expérience des autres." style="box-sizing:border-box;padding:84px 110px;background:#FFF4E0;color:#2A1A0D;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#FF6A3D;margin-bottom:20px;">Monétisation</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:78px;line-height:1;letter-spacing:-0.02em;margin-bottom:56px;">Trois sources de revenus</h2>
+  <div style="display:flex;gap:40px;">
+    <div style="flex:1;background:#FFFBF2;border-radius:26px;padding:42px 38px;box-shadow:0 18px 44px rgba(42,18,6,0.1);">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;color:#F4A722;">Membre Fondateur</div>
+      <p style="font-size:27px;line-height:1.4;margin-top:18px;color:#4A3522;">Un badge numéroté et introuvable. Les 1 023 OG l'ont gratuitement ; les nouveaux veulent le leur. La rareté se vend toute seule.</p>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;color:#2A1A0D;margin-top:26px;">Achat unique</div>
+    </div>
+    <div style="flex:1;background:#241308;border-radius:26px;padding:42px 38px;box-shadow:0 18px 44px rgba(42,18,6,0.22);">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;color:#FFB347;">Pinte+</div>
+      <p style="font-size:27px;line-height:1.4;margin-top:18px;color:#D9C3A6;">L'abonnement : stats détaillées, historique complet, badges exclusifs, avatar custom, droit de représenter sa ville aux évènements.</p>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;color:#FFCB6B;margin-top:26px;">≈ 2,99 € / mois</div>
+    </div>
+    <div style="flex:1;background:#FFFBF2;border-radius:26px;padding:42px 38px;box-shadow:0 18px 44px rgba(42,18,6,0.1);">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;color:#FF6A3D;">Cosmétiques</div>
+      <p style="font-size:27px;line-height:1.4;margin-top:18px;color:#4A3522;">Cadres de photo thématiques, couleurs de ta ville, verres animés. Marge énorme, zéro impact sur l'expérience des autres.</p>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;color:#2A1A0D;margin-top:26px;">Dès 0,99 €</div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 INTERNATIONAL -->
+<section data-label="France puis le monde" data-screen-label="14" data-speaker-notes="La vision : la France d'abord, mais une architecture villes→régions→pays pensée pour scaler à l'international dès le départ." style="box-sizing:border-box;padding:90px 110px;background:#1AA3D6;color:#fff;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#06283A;opacity:0.65;margin-bottom:26px;">Vision</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:90px;line-height:1.0;letter-spacing:-0.02em;">D'abord la France,<br>puis le monde</h2>
+  <div style="display:flex;align-items:center;gap:30px;margin-top:64px;">
+    <div style="background:#FFFBF2;color:#06283A;border-radius:20px;padding:30px 44px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;">Villes</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;color:#063A52;">→</div>
+    <div style="background:#FFFBF2;color:#06283A;border-radius:20px;padding:30px 44px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;">Régions</div>
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;color:#063A52;">→</div>
+    <div style="background:#241308;color:#FFCB6B;border-radius:20px;padding:30px 44px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;">Pays</div>
+  </div>
+  <p style="font-size:34px;line-height:1.45;max-width:1250px;margin-top:56px;color:#063A52;">La même mécanique se rejoue à chaque échelle. L'architecture est pensée pour l'international dès le premier jour : pour s'étendre, il suffira d'ajouter des pays.</p>
+</section>
+
+<!-- 15 CLOSING -->
+<section data-label="La suite" data-screen-label="15" data-speaker-notes="Clôture + roadmap : MVP, beta avec les 1023, lancement public. Et le slogan." style="box-sizing:border-box;padding:96px 110px;background:radial-gradient(circle at 26% 30%, #FFC861 0%, #FF9A3D 42%, #FF5E3A 100%);color:#2A1206;font-family:'Hanken Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;">
+  <div style="position:absolute;top:60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,0.16);animation:floaty 7s ease-in-out infinite;"></div>
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#5A2509;">Prochaine étape</div>
+  <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:128px;line-height:0.94;letter-spacing:-0.03em;">On a un million<br>de pintes à boire.</h2>
+  <div style="display:flex;gap:18px;flex-wrap:wrap;">
+    <span style="background:#2A1206;color:#FFCB6B;padding:16px 32px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:30px;">1 · MVP</span>
+    <span style="background:#2A1206;color:#FFCB6B;padding:16px 32px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:30px;">2 · Beta avec les 1 023</span>
+    <span style="background:#2A1206;color:#FFCB6B;padding:16px 32px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:30px;">3 · Lancement public</span>
+  </div>
+</section>
+
+</x-import>
+</x-dc>
+<script>
+(async () => {
+  if (!document.title || !document.title.trim()) document.title = "Le Million de Pintes";
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    print-color-adjust: exact; -webkit-print-color-adjust: exact;\n    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  // Project support.js may predate runtime default-seeding; push via bridge.
+  if (isDc && window.__dcSetProps && window.__dcRootName) {
+    try {
+      const dpEl = document.querySelector('script[data-dc-script]');
+      const meta = JSON.parse((dpEl && dpEl.getAttribute('data-props')) || '{}');
+      const bag = {};
+      for (const k in meta)
+        if (k[0] !== '$' && meta[k] && meta[k].default !== undefined)
+          bag[k] = meta[k].default;
+      if (Object.keys(bag).length) {
+        window.__dcSetProps(window.__dcRootName(), bag);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+    } catch (e) {}
+  }
+  // Reveal content gated on scroll or visibility before printing. Lazy <img>,
+  // IntersectionObserver fade-ins, and collapsed <details> don't render while
+  // off-screen, so a long page would print with them blank or closed. Open
+  // every <details>, force native-lazy images eager, and scroll the document
+  // through its full height to trip lazy-load + IO; then wait (bounded) for the
+  // newly-triggered images. Inert for deck-stage (slides aren't scroll-gated).
+  try {
+    for (const d of document.querySelectorAll('details')) d.open = true;
+    for (const img of document.querySelectorAll('img[loading="lazy"]'))
+      img.loading = 'eager';
+    const scroller = document.scrollingElement || document.documentElement;
+    const full = Math.max(scroller.scrollHeight, document.body.scrollHeight);
+    const step = window.innerHeight || 800;
+    for (let y = 0; y <= full; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => requestAnimationFrame(r));
+    }
+    window.scrollTo(0, 0);
+    await Promise.race([
+      Promise.all(
+        [...document.images].map((img) =>
+          img.complete
+            ? null
+            : new Promise((res) => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+              })
+        )
+      ),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
+  } catch (e) {}
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  // Re-append deck-stage's @page last so no author @page can add a margin and
+  // spill each full-bleed slide onto two sheets. Backstop for old copies.
+  if (ds) {
+    let pg = document.getElementById('deck-stage-print-page');
+    if (!pg) {
+      pg = document.createElement('style');
+      pg.textContent = '@page{size:' + (+ds.getAttribute('width') || 1920) +
+        'px ' + (+ds.getAttribute('height') || 1080) + 'px;margin:0}';
+    }
+    document.body.appendChild(pg);
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  // Size the PDF page to the rendered design unless the file opted into
+  // standard paper via @page{size:letter|A4|…}. Decks own their own @page.
+  // Wrappers (body, …) lose padding+margin so the frame sits at (0,0); the
+  // frame itself loses only margin — its padding is INSIDE the measured
+  // rect and must stay, or content shifts and leaves a gap at bottom/right.
+  var __m = null;
+  try { __m = (() => {
+  var docEl = document.documentElement;
+  var doc = { width: docEl.scrollWidth, height: docEl.scrollHeight };
+
+  var ds = document.querySelector('deck-stage');
+  if (ds) {
+    var dw = Number(ds.getAttribute('width')) || 1920;
+    var dh = Number(ds.getAttribute('height')) || 1080;
+    var n = typeof ds.length === 'number' ? ds.length : ds.children.length;
+    var idx = typeof ds.index === 'number' ? ds.index : 0;
+    var frames = [];
+    for (var i = 0; i < n; i++) frames.push({ left: 0, top: 0, width: dw, height: dh });
+    return { kind: 'deck', doc: doc, frames: frames,
+      authored: frames.map(function(){return{width:true,height:true}}),
+      deck: { width: dw, height: dh, slideCount: n, index: idx },
+      signals: { paperPage: false, pxPage: false } };
+  }
+
+  var paperPage = false, pxPage = false;
+  var eachRule = function (fn) {
+    for (var s = 0; s < document.styleSheets.length; s++) {
+      var rs; try { rs = document.styleSheets[s].cssRules; } catch (e) { continue; }
+      for (var r = 0; r < rs.length; r++) {
+        fn(rs[r]);
+        if (rs[r].cssRules) for (var n = 0; n < rs[r].cssRules.length; n++) fn(rs[r].cssRules[n]);
+      }
+    }
+  };
+  eachRule(function (r) {
+    if (r.type !== 6) return;
+    var m = /\bsize\s*:\s*([^;}]+)/i.exec(r.cssText || '');
+    if (!m) return;
+    if (/\b(letter|a[3-5]|legal|ledger)\b/i.test(m[1])) paperPage = true;
+    if (/\d+(?:\.\d+)?px\b/i.test(m[1])) pxPage = true;
+  });
+  var signals = { paperPage: paperPage, pxPage: pxPage };
+
+  var pxVal = function (v) {
+    var m = /^(\d+(?:\.\d+)?)px$/.exec(v || ''); return m ? +m[1] : 0;
+  };
+  var authoredPx = function (el, prop) {
+    if (pxVal(el.style[prop])) return true;
+    var attr = el.getAttribute(prop);
+    if (attr && /^\d+$/.test(attr)) return true;
+    var hit = false;
+    eachRule(function (r) {
+      if (hit || r.type !== 1 || !r.style) return;
+      try { if (el.matches(r.selectorText) && pxVal(r.style[prop])) hit = true; } catch (e) {}
+    });
+    return hit;
+  };
+
+  var el = document.body, rootPxW = false;
+  for (;;) {
+    var kids = [];
+    for (var c = 0; c < el.children.length; c++) {
+      var t = el.children[c].tagName;
+      if (t !== 'SCRIPT' && t !== 'STYLE' && t !== 'TEMPLATE') kids.push(el.children[c]);
+    }
+    if (kids.length !== 1 || !(kids[0] instanceof HTMLElement)) break;
+    el.setAttribute('data-om-frame-wrap', '');
+    el = kids[0];
+    rootPxW = authoredPx(el, 'width');
+    if (rootPxW) break;
+  }
+  if (!rootPxW) rootPxW = authoredPx(el, 'width');
+
+  // @page{size:letter} alone is a flowing doc; with a px-width root it's a
+  // fixed sheet pretending to be paper — fall through and size to render.
+  if (paperPage && !rootPxW) {
+    return { kind: 'paper-doc', doc: doc, signals: signals,
+      frames: [{ left: 0, top: 0, width: doc.width, height: doc.height }],
+      authored: [{ width: false, height: false }] };
+  }
+
+  var sx = window.scrollX || 0, sy = window.scrollY || 0;
+  var rectOf = function (e) {
+    var r = e.getBoundingClientRect();
+    var oy; try { oy = getComputedStyle(e).overflowY; } catch (err) {}
+    var h = oy === 'visible' ? Math.max(r.height, e.scrollHeight || 0) : r.height;
+    return { left: r.left + sx, top: r.top + sy, width: r.width, height: h };
+  };
+
+  // Multi-frame: ≥2 visible non-fixed children, each with authored px width
+  // AND height, all within ±2px of each other. Off unless the page opts in
+  // via data-om-multi-frame on the stop element — guards against card grids
+  // and pricing tables that match the geometry but aren't separate canvases.
+  if (el.hasAttribute('data-om-multi-frame')) {
+    var cands = [];
+    for (var k = 0; k < el.children.length; k++) {
+      var ch = el.children[k];
+      var cs; try { cs = getComputedStyle(ch); } catch (e) { continue; }
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.position === 'fixed') continue;
+      var rc = rectOf(ch);
+      if (rc.width < 2 || rc.height < 2) continue;
+      if (!authoredPx(ch, 'width') || !authoredPx(ch, 'height')) continue;
+      cands.push(rc);
+    }
+    if (cands.length >= 2) {
+      var w0 = cands[0].width, h0 = cands[0].height, ok = true;
+      for (var q = 1; q < cands.length; q++)
+        if (Math.abs(cands[q].width - w0) > 2 || Math.abs(cands[q].height - h0) > 2) ok = false;
+      if (ok) return { kind: 'multi-frame', doc: doc, signals: signals,
+        frames: cands, authored: cands.map(function(){return{width:true,height:true}}) };
+    }
+  }
+
+  el.setAttribute('data-om-frame', '');
+  return { kind: 'single-canvas', doc: doc, signals: signals,
+    frames: [rectOf(el)],
+    authored: [{ width: rootPxW, height: authoredPx(el, 'height') }] };
+})(); } catch (e) {}
+  var frame = null;
+  if (__m && __m.kind === 'single-canvas') {
+    var f = __m.frames && __m.frames[0];
+    if (f && f.width >= 200 && f.height >= 200) {
+      frame = f;
+      var fst = document.createElement('style');
+      fst.textContent = '@media print{@page{size:' + Math.ceil(f.width) + 'px ' +
+        Math.ceil(f.height) + 'px;margin:0}' +
+        'html,body,[data-om-frame-wrap]{padding:0!important;margin:0!important;background:none!important}' +
+        '[data-om-frame]{margin:0!important}}';
+      document.body.appendChild(fst);
+    }
+  }
+  // Relax break-inside on oversized elements. An element taller than a
+  // printable page can't honor break-inside: avoid — browsers either overflow
+  // it or push it whole to the next page, leaving a blank gap, then break it
+  // anyway at an arbitrary point. After the final layout (content revealed,
+  // animations jumped), find elements taller than a page that still compute
+  // break-inside: avoid and reset them to auto, so the browser breaks them at
+  // their children's boundaries instead (children keep their own avoid). PAGE_PX
+  // is a conservative portrait estimate at 96 CSS px/in — Letter/A4 usable
+  // height minus our 0.5in margins — so only clearly-oversized elements are
+  // touched and under-page elements still stay whole. Skipped for decks (slides
+  // are sized to the page) and for fixed-size canvases (frame set, or an author
+  // px-based @page) — runs as before for flowing docs on letter/A4.
+  try {
+    if (!ds && !frame && !(__m && __m.signals && __m.signals.pxPage)) {
+      const PAGE_PX = 1024;
+      // Our print defaults add a real @page margin only when the source has
+      // no @page of its own; computed style can't tell us (it reports screen
+      // media), so read the injected rule directly.
+      const defaults = document.querySelector('style[data-omelette-print-defaults]');
+      const pageInset = /@page\s*\{[^}]*margin/.test(defaults ? defaults.textContent || '' : '');
+      const SEL = 'section,article,figure,table,pre,blockquote,[class~="card" i],[class~="page" i],[class~="sheet" i]';
+      for (const el of document.body.querySelectorAll(SEL)) {
+        if (el instanceof HTMLElement && el.offsetHeight > PAGE_PX) {
+          el.setAttribute('data-om-oversized', '');
+          // Fake-paged docs simulate sheets with over-tall break-after:page
+          // boxes; honoring the break spills half-blank pages and ends a
+          // colored box mid-sheet. Flow them, and (only when we own the page
+          // inset) drop the redundant padding/background via the rule below.
+          const cs = getComputedStyle(el);
+          if (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always') {
+            el.setAttribute('data-om-fakepage', '');
+          }
+        }
+      }
+      const ost = document.createElement('style');
+      ost.textContent = '@media print{' +
+        '[data-om-oversized]{break-inside:auto !important;page-break-inside:auto !important}' +
+        '[data-om-fakepage]{break-after:auto !important;page-break-after:auto !important}' +
+        (pageInset ? '[data-om-fakepage]{padding:0 !important;background:none !important}' : '') +
+        '}';
+      document.head.appendChild(ost);
+    }
+  } catch (e) {}
+  // macOS Preview renders Skia-PDF Luminosity soft-masks as opaque grey boxes;
+  // swap the CSS that triggers them for Preview-safe forms.
+  try {
+    for (const el of document.body.querySelectorAll('*')) {
+      const cs = getComputedStyle(el);
+
+      if (cs.boxShadow !== 'none' && cs.filter === 'none') {
+        const outs = [], kept = [];
+        for (const s of cs.boxShadow.split(/,(?![^(]*[)])/)) {
+          const t = s.trim();
+          const m = t.match(/^(rgba?[(][^)]+[)]) (-?[0-9.]+px) (-?[0-9.]+px) ([0-9.]+px) -?[0-9.]+px$/);
+          if (m && parseFloat(m[4]) > 0) outs.push('drop-shadow(' + m[2] + ' ' + m[3] + ' ' + m[4] + ' ' + m[1] + ')');
+          else kept.push(t);
+        }
+        if (outs.length) {
+          el.style.setProperty('filter', outs.join(' '), 'important');
+          el.style.setProperty('box-shadow', kept.join(', ') || 'none', 'important');
+        }
+      }
+
+      const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+      if (mask && mask !== 'none' && cs.filter === 'none') el.style.setProperty('filter', 'opacity(1)', 'important');
+    }
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>
