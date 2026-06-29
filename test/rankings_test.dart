@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:pintes_app/app.dart';
 import 'package:pintes_app/data/token_store.dart';
 import 'package:pintes_app/models/ranking.dart';
 import 'package:pintes_app/state/providers.dart';
 import 'package:pintes_app/state/rankings_controller.dart';
+import 'package:pintes_app/ui/rankings_screen.dart';
 
 void main() {
   ProviderContainer container(MockClient mock) => ProviderContainer(
@@ -85,5 +87,33 @@ void main() {
     n.onRemoteChange();
     await tester.pump(const Duration(milliseconds: 700));
     expect(calls, baseline + 1); // coalesced
+  });
+
+  testWidgets('rankings screen renders rows and highlights ta ville',
+      (tester) async {
+    final c = container(MockClient((req) async => http.Response(
+          jsonEncode({
+            'period': 'day',
+            'cities': [
+              {'key': 'lyon', 'name': 'Lyon', 'count': 120, 'rank': 1},
+              {'key': 'paris', 'name': 'Paris', 'count': 90, 'rank': 2},
+            ],
+            'me': {'key': 'paris', 'name': 'Paris', 'count': 90, 'rank': 2},
+          }),
+          200,
+        )));
+    addTearDown(c.dispose);
+
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: c,
+      child: const PintesApp(home: RankingsScreen()),
+    ));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Lyon'), findsOneWidget);
+    expect(find.text('Paris'), findsOneWidget);
+    expect(find.text('ta ville'), findsOneWidget); // pill sur la ville de me
+    expect(find.text('Aujourd\'hui'), findsOneWidget);
+    expect(find.text('Cette semaine'), findsOneWidget);
   });
 }
