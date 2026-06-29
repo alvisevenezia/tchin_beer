@@ -5,6 +5,7 @@ import 'package:http_parser/http_parser.dart';
 
 import '../models/feed_item.dart';
 import '../models/profile.dart';
+import '../models/ranking.dart';
 import '../models/session.dart';
 import 'token_store.dart';
 
@@ -130,5 +131,14 @@ class ApiClient {
     final r = await _client.get(_uri('/me'), headers: await _headers());
     if (r.statusCode != 200) _fail(r);
     return Profile.fromJson(jsonDecode(r.body) as Map<String, dynamic>);
+  }
+
+  Future<Rankings> getRankings({String period = 'day', int limit = 10}) async {
+    final r = await _client.get(
+      _uri('/rankings', {'period': period, 'limit': limit}),
+      headers: await _headers(),
+    );
+    if (r.statusCode != 200) _fail(r);
+    return Rankings.fromJson(jsonDecode(r.body) as Map<String, dynamic>);
   }
 }
