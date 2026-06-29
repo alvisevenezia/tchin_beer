@@ -6,7 +6,7 @@ class PintesApp extends StatelessWidget {
   final Widget home;
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Le Million de Pintes',
+    title: 'Tchin.beer',
     debugShowCheckedModeBanner: false,
     theme: buildAppTheme(),
     home: home,

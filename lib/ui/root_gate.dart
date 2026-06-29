@@ -12,19 +12,24 @@ class RootGate extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final session = ref.watch(sessionControllerProvider);
     return session.when(
-      loading: () =>
-          const Scaffold(body: Center(child: CircularProgressIndicator())),
+      // Pendant le chargement, le SplashGate recouvre cet écran : on évite donc
+      // un spinner qui « flashe » derrière le splash.
+      loading: () => const Scaffold(body: SizedBox.expand()),
       error: (e, _) => Scaffold(body: Center(child: Text('Erreur : $e'))),
-      data: (s) => switch (s) {
-        NeedsOnboarding() => const OnboardingScreen(),
-        Authenticated() => const _AuthedApp(),
-      },
+      data: (s) => AnimatedSwitcher(
+        duration: const Duration(milliseconds: 350),
+        switchInCurve: Curves.easeOut,
+        child: switch (s) {
+          NeedsOnboarding() => const OnboardingScreen(key: ValueKey('onboarding')),
+          Authenticated() => const _AuthedApp(key: ValueKey('app')),
+        },
+      ),
     );
   }
 }
 
 class _AuthedApp extends ConsumerStatefulWidget {
-  const _AuthedApp();
+  const _AuthedApp({super.key});
   @override
   ConsumerState<_AuthedApp> createState() => _AuthedAppState();
 }

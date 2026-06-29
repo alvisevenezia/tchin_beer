@@ -1,4 +1,4 @@
-# Le Million de Pintes — App Flutter
+# Tchin.beer — App Flutter
 
 Le « cœur émotionnel » côté mobile : poste une photo de pinte, vois le **compteur mondial
 monter en temps réel** (SSE), parcours le **fil commun** et like, consulte ton **profil léger**.
