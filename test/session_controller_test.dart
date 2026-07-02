@@ -48,4 +48,15 @@ void main() {
     expect(await store.read(), 'tok');
     expect(c.read(sessionControllerProvider).value, isA<Authenticated>());
   });
+
+  test('stale token (401 on /me) -> clears token, falls back to NeedsOnboarding', () async {
+    final store = InMemoryTokenStore()..write('stale');
+    final c = _container(
+      MockClient((_) async => http.Response('{"detail":"unknown token"}', 401)),
+      store,
+    );
+    final s = await c.read(sessionControllerProvider.future);
+    expect(s, isA<NeedsOnboarding>());
+    expect(await store.read(), isNull);
+  });
 }

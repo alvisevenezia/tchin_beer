@@ -32,8 +32,17 @@ class SessionController extends AsyncNotifier<SessionState> {
     final token = await ref.watch(tokenStoreProvider).read();
     if (token == null) return const NeedsOnboarding();
     // Token présent : valider en chargeant le profil.
-    final me = await ref.watch(apiClientProvider).getMe();
-    return Authenticated(me.pseudo, me.city);
+    try {
+      final me = await ref.watch(apiClientProvider).getMe();
+      return Authenticated(me.pseudo, me.city);
+    } on ApiException catch (e) {
+      if (e.status == 401) {
+        // Token périmé / compte disparu côté serveur : on repart de zéro.
+        await ref.read(tokenStoreProvider).clear();
+        return const NeedsOnboarding();
+      }
+      rethrow;
+    }
   }
 
   /// Inscrit l'appareil. On NE passe PAS l'état global en `AsyncLoading`/`AsyncError`
