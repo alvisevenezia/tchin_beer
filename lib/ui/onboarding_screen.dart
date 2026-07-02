@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../state/session_controller.dart';
 import '../theme/app_theme.dart';
 import '../theme/tokens.dart';
+import 'widgets/city_picker.dart';
 
 /// Écran de connexion / inscription. Reprend la maquette du handoff
 /// (`docs/Pinte App - Animation + Login.html`) : bandeau illustré en haut,
@@ -20,6 +21,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _pseudo = TextEditingController();
   final _city = TextEditingController();
   bool _busy = false;
+  bool _detectingCity = false;
   String? _pseudoError; // erreur sous le champ pseudo
   String? _formError; // erreur réseau / serveur (bannière)
 
@@ -49,6 +51,25 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       return 'Lettres, chiffres, « . » et « _ » uniquement.';
     }
     return null;
+  }
+
+  Future<void> _detectCity() async {
+    setState(() => _detectingCity = true);
+    try {
+      final chosen = await detectAndPickCity(context);
+      if (!mounted) return;
+      if (chosen != null) {
+        _city.text = chosen;
+      } else {
+        setState(() => _formError = 'Ville non détectée. Saisis-la manuellement.');
+      }
+    } catch (_) {
+      if (mounted) {
+        setState(() => _formError = 'Erreur de localisation. Saisis ta ville manuellement.');
+      }
+    } finally {
+      if (mounted) setState(() => _detectingCity = false);
+    }
   }
 
   @override
@@ -120,6 +141,46 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     prefix: const Padding(
                       padding: EdgeInsets.only(right: 2),
                       child: Text('📍', style: TextStyle(fontSize: 18)),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onTap: _detectingCity ? null : _detectCity,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: AppTokens.foam,
+                        border:
+                            Border.all(color: AppTokens.rail, width: 1.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (_detectingCity)
+                            const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                  strokeWidth: 2),
+                            )
+                          else
+                            const Text('📍',
+                                style: TextStyle(fontSize: 16)),
+                          const SizedBox(width: 8),
+                          Text(
+                            _detectingCity
+                                ? 'Détection…'
+                                : 'Détecter ma ville',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14,
+                              color: AppTokens.ink,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   if (_formError != null) ...[
@@ -377,3 +438,4 @@ class _StyledField extends StatelessWidget {
     );
   }
 }
+

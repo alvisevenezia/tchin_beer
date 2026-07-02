@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pintes_app/models/feed_item.dart';
+import 'package:pintes_app/models/profile.dart';
 
 void main() {
   test('FeedItem.fromJson + copyWith', () {
@@ -14,5 +15,62 @@ void main() {
     });
     expect(i.number, 42);
     expect(i.copyWith(liked: true, likes: 4).liked, true);
+  });
+
+  test('FeedItem.fromJson parses reactions + my_reaction, defaults to empty', () {
+    final withoutReactions = FeedItem.fromJson({
+      'id': 'a',
+      'number': 1,
+      'name': 'Léo',
+      'city': 'Toulouse',
+      'tone': 'coral',
+      'likes': 0,
+      'liked': false,
+    });
+    expect(withoutReactions.reactions, <String, int>{});
+    expect(withoutReactions.myReaction, isNull);
+
+    final withReactions = FeedItem.fromJson({
+      'id': 'a',
+      'number': 1,
+      'name': 'Léo',
+      'city': 'Toulouse',
+      'tone': 'coral',
+      'likes': 0,
+      'liked': false,
+      'reactions': {'fire': 2, 'star': 1},
+      'my_reaction': 'fire',
+    });
+    expect(withReactions.reactions, {'fire': 2, 'star': 1});
+    expect(withReactions.myReaction, 'fire');
+
+    final updated = withReactions.withReaction(
+      reactions: {'fire': 1},
+      myReaction: null,
+    );
+    expect(updated.reactions, {'fire': 1});
+    expect(updated.myReaction, isNull);
+    expect(updated.id, 'a'); // autres champs préservés
+  });
+
+  test('Profile.fromJson parses availableReactions, defaults to empty', () {
+    final withoutReactions = Profile.fromJson({
+      'pseudo': 'Léo',
+      'city': 'Toulouse',
+      'myCount': 1,
+      'streak': 1,
+      'isPremium': false,
+    });
+    expect(withoutReactions.availableReactions, <String>[]);
+
+    final withReactions = Profile.fromJson({
+      'pseudo': 'Léo',
+      'city': 'Toulouse',
+      'myCount': 1,
+      'streak': 1,
+      'isPremium': false,
+      'availableReactions': ['fire', 'star'],
+    });
+    expect(withReactions.availableReactions, ['fire', 'star']);
   });
 }

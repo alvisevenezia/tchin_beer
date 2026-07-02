@@ -133,6 +133,103 @@ class ApiClient {
     return Profile.fromJson(jsonDecode(r.body) as Map<String, dynamic>);
   }
 
+  Future<void> updateCity(String city) async {
+    final headers = await _headers();
+    headers['content-type'] = 'application/json';
+    final r = await _client.patch(
+      _uri('/me'),
+      headers: headers,
+      body: jsonEncode({'city': city}),
+    );
+    if (r.statusCode != 200) _fail(r);
+  }
+
+  Future<void> activatePremium() async {
+    final r = await _client.post(
+      _uri('/me/activate-premium'),
+      headers: await _headers(),
+    );
+    if (r.statusCode != 200) _fail(r);
+  }
+
+  Future<void> updateFrame(String? frame) async {
+    final headers = await _headers();
+    headers['content-type'] = 'application/json';
+    final r = await _client.patch(
+      _uri('/me'),
+      headers: headers,
+      body: jsonEncode({'frame': frame}),
+    );
+    if (r.statusCode != 200) _fail(r);
+  }
+
+  Future<String?> uploadAvatar({
+    required List<int> bytes,
+    required String filename,
+    required String contentType,
+  }) async {
+    final req = http.MultipartRequest('POST', _uri('/me/avatar'))
+      ..headers.addAll(await _headers())
+      ..files.add(
+        http.MultipartFile.fromBytes(
+          'photo',
+          bytes,
+          filename: filename,
+          contentType: _mediaType(contentType),
+        ),
+      );
+    final r = await http.Response.fromStream(await _client.send(req));
+    if (r.statusCode != 200) _fail(r);
+    return (jsonDecode(r.body) as Map<String, dynamic>)['avatarUrl'] as String?;
+  }
+
+  Future<PremiumStats> getPremiumStats() async {
+    final r = await _client.get(_uri('/me/stats'), headers: await _headers());
+    if (r.statusCode != 200) _fail(r);
+    return PremiumStats.fromJson(jsonDecode(r.body) as Map<String, dynamic>);
+  }
+
+  Future<List<String>> buyFrame(String frameId) async {
+    final r = await _client.post(
+      _uri('/shop/frames/$frameId/buy'),
+      headers: await _headers(),
+    );
+    if (r.statusCode != 200) _fail(r);
+    return ((jsonDecode(r.body) as Map<String, dynamic>)['purchasedFrames'] as List)
+        .cast<String>();
+  }
+
+  Future<({Map<String, int> reactions, String? myReaction})> addReaction(
+    String pinteId,
+    String type,
+  ) async {
+    final headers = await _headers();
+    headers['content-type'] = 'application/json';
+    final r = await _client.post(
+      _uri('/pintes/$pinteId/react'),
+      headers: headers,
+      body: jsonEncode({'reaction_type': type}),
+    );
+    if (r.statusCode != 200) _fail(r);
+    final j = jsonDecode(r.body) as Map<String, dynamic>;
+    return (
+      reactions: (j['reactions'] as Map<String, dynamic>).map(
+        (k, v) => MapEntry(k, v as int),
+      ),
+      myReaction: j['my_reaction'] as String?,
+    );
+  }
+
+  Future<List<String>> buyPack(String packId) async {
+    final r = await _client.post(
+      _uri('/shop/packs/$packId/buy'),
+      headers: await _headers(),
+    );
+    if (r.statusCode != 200) _fail(r);
+    return ((jsonDecode(r.body) as Map<String, dynamic>)['purchasedPacks'] as List)
+        .cast<String>();
+  }
+
   Future<Rankings> getRankings({String period = 'day', int limit = 10}) async {
     final r = await _client.get(
       _uri('/rankings', {'period': period, 'limit': limit}),

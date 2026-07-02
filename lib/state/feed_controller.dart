@@ -77,6 +77,54 @@ class FeedController extends AsyncNotifier<FeedState> {
       state = AsyncData(cur); // rollback
     }
   }
+
+  Future<void> react(String id, String type) async {
+    final cur = state.value;
+    if (cur == null) return;
+    final target = cur.items.firstWhere((e) => e.id == id);
+    // Optimiste : même type retapé == toggle off (miroir de la logique backend).
+    final optimisticType = target.myReaction == type ? null : type;
+    final optimisticReactions = Map<String, int>.from(target.reactions);
+    if (target.myReaction != null) {
+      final n = (optimisticReactions[target.myReaction!] ?? 1) - 1;
+      if (n <= 0) {
+        optimisticReactions.remove(target.myReaction!);
+      } else {
+        optimisticReactions[target.myReaction!] = n;
+      }
+    }
+    if (optimisticType != null) {
+      optimisticReactions[optimisticType] =
+          (optimisticReactions[optimisticType] ?? 0) + 1;
+    }
+    final optimisticItems = cur.items
+        .map(
+          (e) => e.id == id
+              ? e.withReaction(
+                  reactions: optimisticReactions,
+                  myReaction: optimisticType,
+                )
+              : e,
+        )
+        .toList();
+    state = AsyncData(cur.copyWith(items: optimisticItems));
+    try {
+      final res = await ref.read(apiClientProvider).addReaction(id, type);
+      final reconciled = state.value!.items
+          .map(
+            (e) => e.id == id
+                ? e.withReaction(
+                    reactions: res.reactions,
+                    myReaction: res.myReaction,
+                  )
+                : e,
+          )
+          .toList();
+      state = AsyncData(state.value!.copyWith(items: reconciled));
+    } catch (_) {
+      state = AsyncData(cur); // rollback
+    }
+  }
 }
 
 final feedControllerProvider = AsyncNotifierProvider<FeedController, FeedState>(

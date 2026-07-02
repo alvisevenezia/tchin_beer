@@ -34,4 +34,43 @@ void main() {
     c.read(profileControllerProvider.notifier).bumpMyCount();
     expect(c.read(profileControllerProvider).value!.myCount, 3);
   });
+
+  test('buyPack buys then refreshes availableReactions from /me', () async {
+    var meCalls = 0;
+    final c = ProviderContainer(
+      overrides: [
+        tokenStoreProvider.overrideWithValue(InMemoryTokenStore()..write('t')),
+        httpClientProvider.overrideWithValue(
+          MockClient((r) async {
+            if (r.url.path == '/shop/packs/starter_pack/buy') {
+              return http.Response(
+                jsonEncode({
+                  'purchasedPacks': ['starter_pack'],
+                }),
+                200,
+              );
+            }
+            meCalls++;
+            return http.Response(
+              jsonEncode({
+                'pseudo': 'Léo',
+                'city': 'Toulouse',
+                'myCount': 0,
+                'streak': 0,
+                'availableReactions': meCalls > 1 ? ['fire', 'star'] : [],
+              }),
+              200,
+            );
+          }),
+        ),
+      ],
+    );
+    addTearDown(c.dispose);
+    await c.read(profileControllerProvider.future);
+    await c.read(profileControllerProvider.notifier).buyPack('starter_pack');
+    expect(
+      c.read(profileControllerProvider).value!.availableReactions,
+      ['fire', 'star'],
+    );
+  });
 }

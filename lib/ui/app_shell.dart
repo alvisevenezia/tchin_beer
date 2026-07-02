@@ -16,7 +16,7 @@ class AppShell extends ConsumerStatefulWidget {
 }
 
 class _AppShellState extends ConsumerState<AppShell> {
-  int _index = 0;
+  int _index = 1;
 
   Future<void> _openCapture() async {
     await Navigator.of(context).push(
@@ -49,19 +49,37 @@ class _AppShellState extends ConsumerState<AppShell> {
       body: IndexedStack(
         index: _index,
         children: [
-          HomeScreen(onAddPinte: _openCapture),
+          HomeScreen(
+            onAddPinte: _openCapture,
+            onGoVilles: () => setState(() => _index = 2),
+          ),
           const FeedScreen(),
           const RankingsScreen(),
           const ProfileScreen(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppTokens.coral,
-        onPressed: _openCapture,
-        child: const Text(
-          '+',
-          style: TextStyle(fontSize: 28, color: Colors.white),
+      floatingActionButton: Container(
+        width: 58,
+        height: 58,
+        decoration: const BoxDecoration(
+          color: AppTokens.coral,
+          shape: BoxShape.circle,
+          boxShadow: [AppTokens.fabShadow],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          shape: const CircleBorder(),
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: _openCapture,
+            child: const Center(
+              child: Text(
+                '+',
+                style: TextStyle(fontSize: 28, color: Colors.white, height: 1),
+              ),
+            ),
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

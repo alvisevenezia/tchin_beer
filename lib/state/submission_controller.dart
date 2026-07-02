@@ -60,6 +60,7 @@ class SubmissionController extends Notifier<SubmissionState> {
         'tone': res.item.tone,
         'likes': res.item.likes,
         'liked': res.item.liked,
+        'photo_url': res.item.photoUrl,
       });
       ref.read(profileControllerProvider.notifier).bumpMyCount();
       state = Success(res.number, res.total, res.item);

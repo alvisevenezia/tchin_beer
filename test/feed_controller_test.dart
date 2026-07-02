@@ -77,4 +77,42 @@ void main() {
         .toList();
     expect(ids, ['p2', 'p1']);
   });
+
+  test('react optimistically sets reaction then reconciles with server', () async {
+    final c = ProviderContainer(
+      overrides: [
+        tokenStoreProvider.overrideWithValue(InMemoryTokenStore()..write('t')),
+        httpClientProvider.overrideWithValue(
+          MockClient((r) async {
+            if (r.url.path == '/feed') {
+              return http.Response(
+                jsonEncode({
+                  'items': [_item('p1')],
+                  'next_cursor': null,
+                }),
+                200,
+              );
+            }
+            return http.Response(
+              jsonEncode({
+                'reactions': {'fire': 1},
+                'my_reaction': 'fire',
+              }),
+              200,
+            );
+          }),
+        ),
+      ],
+    );
+    addTearDown(c.dispose);
+    await c.read(feedControllerProvider.future);
+    final notifier = c.read(feedControllerProvider.notifier);
+    final fut = notifier.react('p1', 'fire');
+    // Optimiste : la réaction apparaît avant la réponse serveur.
+    expect(c.read(feedControllerProvider).value!.items.single.myReaction, 'fire');
+    await fut;
+    final item = c.read(feedControllerProvider).value!.items.single;
+    expect(item.reactions, {'fire': 1});
+    expect(item.myReaction, 'fire');
+  });
 }

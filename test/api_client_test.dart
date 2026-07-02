@@ -82,4 +82,42 @@ void main() {
     expect(res.items.single.id, 'a');
     expect(res.nextCursor, isNull);
   });
+
+  test('addReaction posts reaction_type and parses reactions + my_reaction', () async {
+    final api = _client(
+      MockClient((r) async {
+        expect(r.url.path, '/pintes/p1/react');
+        final body = jsonDecode(r.body) as Map<String, dynamic>;
+        expect(body['reaction_type'], 'fire');
+        return http.Response(
+          jsonEncode({
+            'reactions': {'fire': 1},
+            'my_reaction': 'fire',
+          }),
+          200,
+        );
+      }),
+      token: 'tok',
+    );
+    final res = await api.addReaction('p1', 'fire');
+    expect(res.reactions, {'fire': 1});
+    expect(res.myReaction, 'fire');
+  });
+
+  test('buyPack posts to /shop/packs/:id/buy and parses purchasedPacks', () async {
+    final api = _client(
+      MockClient((r) async {
+        expect(r.url.path, '/shop/packs/starter_pack/buy');
+        return http.Response(
+          jsonEncode({
+            'purchasedPacks': ['starter_pack'],
+          }),
+          200,
+        );
+      }),
+      token: 'tok',
+    );
+    final res = await api.buyPack('starter_pack');
+    expect(res, ['starter_pack']);
+  });
 }
