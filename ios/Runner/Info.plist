@@ -6,6 +6,10 @@
 	<string>Pour prendre en photo ta pinte et l'ajouter au compteur.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Pour détecter ta ville et rejoindre la guerre des villes.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Nécessaire au module caméra pour les vidéos (non utilisé pour les photos).</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Pour choisir une photo de ta pinte depuis ta galerie.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
