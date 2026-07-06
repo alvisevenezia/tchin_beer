@@ -1,3 +1,4 @@
+// app/test/profile_controller_test.dart
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -35,6 +36,35 @@ void main() {
     expect(c.read(profileControllerProvider).value!.myCount, 3);
   });
 
+  test('bumpMyCount preserves redCardsReceived and invalidatedPintesCount', () async {
+    final c = ProviderContainer(
+      overrides: [
+        tokenStoreProvider.overrideWithValue(InMemoryTokenStore()..write('t')),
+        httpClientProvider.overrideWithValue(
+          MockClient(
+            (r) async => http.Response(
+              jsonEncode({
+                'pseudo': 'Léo',
+                'city': 'Toulouse',
+                'myCount': 2,
+                'streak': 3,
+                'redCardsReceived': 5,
+                'invalidatedPintesCount': 2,
+              }),
+              200,
+            ),
+          ),
+        ),
+      ],
+    );
+    addTearDown(c.dispose);
+    await c.read(profileControllerProvider.future);
+    c.read(profileControllerProvider.notifier).bumpMyCount();
+    final p = c.read(profileControllerProvider).value!;
+    expect(p.redCardsReceived, 5);
+    expect(p.invalidatedPintesCount, 2);
+  });
+
   test('buyPack buys then refreshes availableReactions from /me', () async {
     var meCalls = 0;
     final c = ProviderContainer(
@@ -42,10 +72,10 @@ void main() {
         tokenStoreProvider.overrideWithValue(InMemoryTokenStore()..write('t')),
         httpClientProvider.overrideWithValue(
           MockClient((r) async {
-            if (r.url.path == '/shop/packs/starter_pack/buy') {
+            if (r.url.path == '/shop/packs/party_pack/buy') {
               return http.Response(
                 jsonEncode({
-                  'purchasedPacks': ['starter_pack'],
+                  'purchasedPacks': ['party_pack'],
                 }),
                 200,
               );
@@ -57,7 +87,9 @@ void main() {
                 'city': 'Toulouse',
                 'myCount': 0,
                 'streak': 0,
-                'availableReactions': meCalls > 1 ? ['fire', 'star'] : [],
+                'availableReactions': meCalls > 1
+                    ? ['fire', 'star', 'tchin', 'wave', 'confetti']
+                    : ['fire', 'star'],
               }),
               200,
             );
@@ -67,10 +99,10 @@ void main() {
     );
     addTearDown(c.dispose);
     await c.read(profileControllerProvider.future);
-    await c.read(profileControllerProvider.notifier).buyPack('starter_pack');
+    await c.read(profileControllerProvider.notifier).buyPack('party_pack');
     expect(
       c.read(profileControllerProvider).value!.availableReactions,
-      ['fire', 'star'],
+      ['fire', 'star', 'tchin', 'wave', 'confetti'],
     );
   });
 }

@@ -9,6 +9,8 @@ class Profile {
     this.avatarUrl,
     this.purchasedFrames = const [],
     this.availableReactions = const [],
+    this.redCardsReceived = 0,
+    this.invalidatedPintesCount = 0,
   });
   final String pseudo;
   final String city;
@@ -19,6 +21,8 @@ class Profile {
   final String? avatarUrl;
   final List<String> purchasedFrames;
   final List<String> availableReactions;
+  final int redCardsReceived;
+  final int invalidatedPintesCount;
 
   bool ownsFrame(String frameId) =>
       isPremium || purchasedFrames.contains(frameId);
@@ -37,6 +41,8 @@ class Profile {
     availableReactions: (j['availableReactions'] as List<dynamic>?)
             ?.cast<String>() ??
         const [],
+    redCardsReceived: j['redCardsReceived'] as int? ?? 0,
+    invalidatedPintesCount: j['invalidatedPintesCount'] as int? ?? 0,
   );
 
   Profile copyWithPurchasedFrames(List<String> frames) => Profile(
@@ -49,6 +55,8 @@ class Profile {
     avatarUrl: avatarUrl,
     purchasedFrames: frames,
     availableReactions: availableReactions,
+    redCardsReceived: redCardsReceived,
+    invalidatedPintesCount: invalidatedPintesCount,
   );
 }
 

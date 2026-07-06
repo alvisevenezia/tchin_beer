@@ -27,6 +27,8 @@ class ProfileController extends AsyncNotifier<Profile> {
       avatarUrl: p.avatarUrl,
       purchasedFrames: p.purchasedFrames,
       availableReactions: p.availableReactions,
+      redCardsReceived: p.redCardsReceived,
+      invalidatedPintesCount: p.invalidatedPintesCount,
     ));
   }
 
@@ -44,6 +46,8 @@ class ProfileController extends AsyncNotifier<Profile> {
       avatarUrl: p.avatarUrl,
       purchasedFrames: p.purchasedFrames,
       availableReactions: p.availableReactions,
+      redCardsReceived: p.redCardsReceived,
+      invalidatedPintesCount: p.invalidatedPintesCount,
     ));
   }
 
@@ -61,6 +65,8 @@ class ProfileController extends AsyncNotifier<Profile> {
       avatarUrl: p.avatarUrl,
       purchasedFrames: p.purchasedFrames,
       availableReactions: p.availableReactions,
+      redCardsReceived: p.redCardsReceived,
+      invalidatedPintesCount: p.invalidatedPintesCount,
     ));
   }
 
@@ -78,6 +84,8 @@ class ProfileController extends AsyncNotifier<Profile> {
       avatarUrl: p.avatarUrl,
       purchasedFrames: p.purchasedFrames,
       availableReactions: p.availableReactions,
+      redCardsReceived: p.redCardsReceived,
+      invalidatedPintesCount: p.invalidatedPintesCount,
     ));
   }
 
@@ -110,6 +118,8 @@ class ProfileController extends AsyncNotifier<Profile> {
       avatarUrl: url,
       purchasedFrames: p.purchasedFrames,
       availableReactions: p.availableReactions,
+      redCardsReceived: p.redCardsReceived,
+      invalidatedPintesCount: p.invalidatedPintesCount,
     ));
   }
 

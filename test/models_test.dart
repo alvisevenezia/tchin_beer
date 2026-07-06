@@ -74,6 +74,30 @@ void main() {
     expect(withReactions.availableReactions, ['fire', 'star']);
   });
 
+  test('Profile.fromJson parses redCardsReceived/invalidatedPintesCount, defaults to 0', () {
+    final withoutFields = Profile.fromJson({
+      'pseudo': 'Léo',
+      'city': 'Toulouse',
+      'myCount': 1,
+      'streak': 1,
+      'isPremium': false,
+    });
+    expect(withoutFields.redCardsReceived, 0);
+    expect(withoutFields.invalidatedPintesCount, 0);
+
+    final withFields = Profile.fromJson({
+      'pseudo': 'Léo',
+      'city': 'Toulouse',
+      'myCount': 1,
+      'streak': 1,
+      'isPremium': false,
+      'redCardsReceived': 3,
+      'invalidatedPintesCount': 1,
+    });
+    expect(withFields.redCardsReceived, 3);
+    expect(withFields.invalidatedPintesCount, 1);
+  });
+
   test('FeedItem.fromJson parses posted_at/invalidated/my_red_card/is_mine, defaults', () {
     final withoutFields = FeedItem.fromJson({
       'id': 'a',
