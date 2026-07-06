@@ -206,6 +206,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ],
               ),
               const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _Stat('${p.redCardsReceived}', 'cartons reçus'),
+                  _Stat('${p.invalidatedPintesCount}', 'invalidées'),
+                ],
+              ),
+              const SizedBox(height: 20),
               const _BadgesRow(),
               if (p.isPremium) ...[
                 const SizedBox(height: 20),
