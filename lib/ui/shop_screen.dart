@@ -16,12 +16,6 @@ const _catalog = [
 // Catalogue miroir de back/app/routers/shop.py::REACTION_PACK_CATALOG.
 const _packCatalog = [
   (
-    id: 'starter_pack',
-    label: 'Starter',
-    reactions: ['fire', 'star'],
-    price: '0,99 €',
-  ),
-  (
     id: 'party_pack',
     label: 'Party',
     reactions: ['fire', 'star', 'tchin', 'wave', 'confetti'],
@@ -147,6 +141,22 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
                 style: TextStyle(color: AppTokens.muted, fontSize: 13),
               ),
               const SizedBox(height: 16),
+              Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                decoration: BoxDecoration(
+                  color: AppTokens.sky.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: const Text(
+                  '🔥⭐ Fire et Star sont gratuites dès le départ !',
+                  style: TextStyle(
+                    color: AppTokens.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
               ..._packCatalog.map(
                 (pack) => _PackCard(
                   pack: pack,
