@@ -127,7 +127,7 @@ void main() {
         expect(r.url.path, '/pintes/p1/red_card');
         expect(r.method, 'POST');
         return http.Response(
-          jsonEncode({'myRedCard': true, 'invalidated': false}),
+          jsonEncode({'my_red_card': true, 'invalidated': false}),
           200,
         );
       }),

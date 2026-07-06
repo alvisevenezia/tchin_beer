@@ -132,7 +132,7 @@ void main() {
               );
             }
             return http.Response(
-              jsonEncode({'myRedCard': true, 'invalidated': false}),
+              jsonEncode({'my_red_card': true, 'invalidated': false}),
               200,
             );
           }),

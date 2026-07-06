@@ -237,7 +237,7 @@ class ApiClient {
     );
     if (r.statusCode != 200) _fail(r);
     final j = jsonDecode(r.body) as Map<String, dynamic>;
-    return (myRedCard: j['myRedCard'] as bool, invalidated: j['invalidated'] as bool);
+    return (myRedCard: j['my_red_card'] as bool, invalidated: j['invalidated'] as bool);
   }
 
   Future<Rankings> getRankings({String period = 'day', int limit = 10}) async {
