@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../state/session_controller.dart';
 import '../theme/app_theme.dart';
 import '../theme/tokens.dart';
+import 'widgets/beer_glass_logo.dart';
 import 'widgets/city_picker.dart';
 
 /// Écran de connexion / inscription. Reprend la maquette du handoff
@@ -247,7 +248,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     ),
                   ],
                 ),
-                child: const Text('🍺', style: TextStyle(fontSize: 38)),
+                child: const BeerGlassLogo(height: 74),
               ),
               const SizedBox(height: 18),
               Text(
