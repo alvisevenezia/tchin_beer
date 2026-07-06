@@ -73,4 +73,43 @@ void main() {
     });
     expect(withReactions.availableReactions, ['fire', 'star']);
   });
+
+  test('FeedItem.fromJson parses posted_at/invalidated/my_red_card/is_mine, defaults', () {
+    final withoutFields = FeedItem.fromJson({
+      'id': 'a',
+      'number': 1,
+      'name': 'Léo',
+      'city': 'Toulouse',
+      'tone': 'coral',
+      'likes': 0,
+      'liked': false,
+    });
+    expect(withoutFields.postedAt, isNull);
+    expect(withoutFields.invalidated, false);
+    expect(withoutFields.myRedCard, false);
+    expect(withoutFields.isMine, false);
+
+    final withFields = FeedItem.fromJson({
+      'id': 'a',
+      'number': 1,
+      'name': 'Léo',
+      'city': 'Toulouse',
+      'tone': 'coral',
+      'likes': 0,
+      'liked': false,
+      'posted_at': '2026-07-06T14:30:00+00:00',
+      'invalidated': true,
+      'my_red_card': true,
+      'is_mine': true,
+    });
+    expect(withFields.postedAt, DateTime.parse('2026-07-06T14:30:00+00:00'));
+    expect(withFields.invalidated, true);
+    expect(withFields.myRedCard, true);
+    expect(withFields.isMine, true);
+
+    final updated = withFields.withRedCard(myRedCard: false, invalidated: false);
+    expect(updated.myRedCard, false);
+    expect(updated.invalidated, false);
+    expect(updated.id, 'a'); // autres champs préservés
+  });
 }

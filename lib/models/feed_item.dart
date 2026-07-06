@@ -13,6 +13,10 @@ class FeedItem {
     this.isPremium = false,
     this.reactions = const {},
     this.myReaction,
+    this.postedAt,
+    this.invalidated = false,
+    this.myRedCard = false,
+    this.isMine = false,
   });
   final String id;
   final int number;
@@ -27,6 +31,10 @@ class FeedItem {
   final bool isPremium;
   final Map<String, int> reactions;
   final String? myReaction;
+  final DateTime? postedAt;
+  final bool invalidated;
+  final bool myRedCard;
+  final bool isMine;
 
   factory FeedItem.fromJson(Map<String, dynamic> j) => FeedItem(
     id: j['id'] as String,
@@ -45,6 +53,10 @@ class FeedItem {
         ) ??
         const {},
     myReaction: j['my_reaction'] as String?,
+    postedAt: j['posted_at'] == null ? null : DateTime.parse(j['posted_at'] as String),
+    invalidated: j['invalidated'] as bool? ?? false,
+    myRedCard: j['my_red_card'] as bool? ?? false,
+    isMine: j['is_mine'] as bool? ?? false,
   );
 
   FeedItem copyWith({int? likes, bool? liked}) => FeedItem(
@@ -61,6 +73,10 @@ class FeedItem {
     isPremium: isPremium,
     reactions: reactions,
     myReaction: myReaction,
+    postedAt: postedAt,
+    invalidated: invalidated,
+    myRedCard: myRedCard,
+    isMine: isMine,
   );
 
   FeedItem withReaction({
@@ -80,5 +96,32 @@ class FeedItem {
     isPremium: isPremium,
     reactions: reactions,
     myReaction: myReaction,
+    postedAt: postedAt,
+    invalidated: invalidated,
+    myRedCard: myRedCard,
+    isMine: isMine,
+  );
+
+  FeedItem withRedCard({
+    required bool myRedCard,
+    required bool invalidated,
+  }) => FeedItem(
+    id: id,
+    number: number,
+    name: name,
+    city: city,
+    tone: tone,
+    likes: likes,
+    liked: liked,
+    frame: frame,
+    avatarUrl: avatarUrl,
+    photoUrl: photoUrl,
+    isPremium: isPremium,
+    reactions: reactions,
+    myReaction: myReaction,
+    postedAt: postedAt,
+    invalidated: invalidated,
+    myRedCard: myRedCard,
+    isMine: isMine,
   );
 }
