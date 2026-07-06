@@ -5,17 +5,26 @@ import '../../theme/tokens.dart';
 import 'photo_frame.dart';
 import 'reaction_widget.dart';
 
+String _formatTime(DateTime dt) {
+  final local = dt.toLocal();
+  final h = local.hour.toString().padLeft(2, '0');
+  final m = local.minute.toString().padLeft(2, '0');
+  return '$h:$m';
+}
+
 class FeedItemCard extends StatelessWidget {
   const FeedItemCard({
     super.key,
     required this.item,
     required this.onLike,
     required this.onReact,
+    required this.onRedCard,
     this.availableReactions = const [],
   });
   final FeedItem item;
   final VoidCallback onLike;
   final ValueChanged<String> onReact;
+  final VoidCallback onRedCard;
   final List<String> availableReactions;
 
   void _openPicker(BuildContext context) {
@@ -53,20 +62,35 @@ class FeedItemCard extends StatelessWidget {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      CustomPaint(
-                        painter: _StripedPainter(
-                          light: stripes.light,
-                          dark: stripes.dark,
+                      ColorFiltered(
+                        colorFilter: item.invalidated
+                            ? const ColorFilter.matrix(<double>[
+                                0.2126, 0.7152, 0.0722, 0, 0,
+                                0.2126, 0.7152, 0.0722, 0, 0,
+                                0.2126, 0.7152, 0.0722, 0, 0,
+                                0, 0, 0, 1, 0,
+                              ])
+                            : const ColorFilter.mode(Colors.transparent, BlendMode.multiply),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            CustomPaint(
+                              painter: _StripedPainter(
+                                light: stripes.light,
+                                dark: stripes.dark,
+                              ),
+                            ),
+                            if (item.photoUrl != null)
+                              Image.network(
+                                item.photoUrl!,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                                errorBuilder: (_, _, _) => const SizedBox.shrink(),
+                              ),
+                          ],
                         ),
                       ),
-                      if (item.photoUrl != null)
-                        Image.network(
-                          item.photoUrl!,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                          errorBuilder: (_, _, _) => const SizedBox.shrink(),
-                        ),
                       Positioned(
                         left: 10,
                         top: 10,
@@ -83,6 +107,8 @@ class FeedItemCard extends StatelessWidget {
                           bottom: 10,
                           child: _ReactionsOverlay(reactions: item.reactions),
                         ),
+                      if (item.invalidated)
+                        const Positioned.fill(child: _InvalidatedOverlay()),
                     ],
                   ),
                 ),
@@ -110,17 +136,36 @@ class FeedItemCard extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    const Text(
-                      'vient de poser sa pinte',
-                      style: TextStyle(
-                        color: AppTokens.muted,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    Row(
+                      children: [
+                        const Text(
+                          'vient de poser sa pinte',
+                          style: TextStyle(
+                            color: AppTokens.muted,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        if (item.postedAt != null) ...[
+                          const SizedBox(width: 6),
+                          Text(
+                            _formatTime(item.postedAt!),
+                            style: const TextStyle(
+                              color: AppTokens.muted,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                   ],
                 ),
               ),
+              if (!item.isMine) ...[
+                _RedCardButton(item: item, onRedCard: onRedCard),
+                const SizedBox(width: 8),
+              ],
               _LikeButton(item: item, accent: accent, onLike: onLike),
             ],
           ),
@@ -128,6 +173,47 @@ class FeedItemCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _InvalidatedOverlay extends StatelessWidget {
+  const _InvalidatedOverlay();
+  @override
+  Widget build(BuildContext context) => Container(
+    color: const Color(0x99000000),
+    alignment: Alignment.center,
+    child: const Text(
+      'Invalidée',
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w800,
+        fontSize: 18,
+        letterSpacing: 0.5,
+      ),
+    ),
+  );
+}
+
+class _RedCardButton extends StatelessWidget {
+  const _RedCardButton({required this.item, required this.onRedCard});
+  final FeedItem item;
+  final VoidCallback onRedCard;
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+    onTap: onRedCard,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      decoration: BoxDecoration(
+        color: item.myRedCard ? AppTokens.live : AppTokens.foam,
+        border: item.myRedCard ? null : Border.all(color: AppTokens.rail),
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: Icon(
+        Icons.flag,
+        size: 16,
+        color: item.myRedCard ? Colors.white : AppTokens.muted,
+      ),
+    ),
+  );
 }
 
 class _Avatar extends StatelessWidget {

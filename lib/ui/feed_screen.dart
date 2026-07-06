@@ -75,6 +75,9 @@ class FeedScreen extends ConsumerWidget {
                             onReact: (type) => ref
                                 .read(feedControllerProvider.notifier)
                                 .react(state.items[i].id, type),
+                            onRedCard: () => ref
+                                .read(feedControllerProvider.notifier)
+                                .toggleRedCard(state.items[i].id),
                             availableReactions: availableReactions,
                           ),
                         ),
