@@ -125,6 +125,47 @@ class FeedController extends AsyncNotifier<FeedState> {
       state = AsyncData(cur); // rollback
     }
   }
+
+  Future<void> toggleRedCard(String id) async {
+    final cur = state.value;
+    if (cur == null) return;
+    final target = cur.items.firstWhere((e) => e.id == id);
+    final optimisticMine = !target.myRedCard;
+    final optimisticItems = cur.items
+        .map(
+          (e) => e.id == id
+              ? e.withRedCard(myRedCard: optimisticMine, invalidated: e.invalidated)
+              : e,
+        )
+        .toList();
+    state = AsyncData(cur.copyWith(items: optimisticItems));
+    try {
+      final res = await ref.read(apiClientProvider).toggleRedCard(id);
+      final reconciled = state.value!.items
+          .map(
+            (e) => e.id == id
+                ? e.withRedCard(myRedCard: res.myRedCard, invalidated: res.invalidated)
+                : e,
+          )
+          .toList();
+      state = AsyncData(state.value!.copyWith(items: reconciled));
+    } catch (_) {
+      state = AsyncData(cur); // rollback
+    }
+  }
+
+  void onPinteStatusChanged({required String id, required bool invalidated}) {
+    final cur = state.value;
+    if (cur == null) return;
+    final updated = cur.items
+        .map(
+          (e) => e.id == id
+              ? e.withRedCard(myRedCard: e.myRedCard, invalidated: invalidated)
+              : e,
+        )
+        .toList();
+    state = AsyncData(cur.copyWith(items: updated));
+  }
 }
 
 final feedControllerProvider = AsyncNotifierProvider<FeedController, FeedState>(

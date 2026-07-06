@@ -115,4 +115,62 @@ void main() {
     expect(item.reactions, {'fire': 1});
     expect(item.myReaction, 'fire');
   });
+
+  test('toggleRedCard optimistically flips myRedCard then reconciles', () async {
+    final c = ProviderContainer(
+      overrides: [
+        tokenStoreProvider.overrideWithValue(InMemoryTokenStore()..write('t')),
+        httpClientProvider.overrideWithValue(
+          MockClient((r) async {
+            if (r.url.path == '/feed') {
+              return http.Response(
+                jsonEncode({
+                  'items': [_item('p1')],
+                  'next_cursor': null,
+                }),
+                200,
+              );
+            }
+            return http.Response(
+              jsonEncode({'myRedCard': true, 'invalidated': false}),
+              200,
+            );
+          }),
+        ),
+      ],
+    );
+    addTearDown(c.dispose);
+    await c.read(feedControllerProvider.future);
+    final notifier = c.read(feedControllerProvider.notifier);
+    final fut = notifier.toggleRedCard('p1');
+    expect(c.read(feedControllerProvider).value!.items.single.myRedCard, true);
+    await fut;
+    expect(c.read(feedControllerProvider).value!.items.single.invalidated, false);
+  });
+
+  test('onPinteStatusChanged updates only the targeted item', () async {
+    final c = ProviderContainer(
+      overrides: [
+        tokenStoreProvider.overrideWithValue(InMemoryTokenStore()..write('t')),
+        httpClientProvider.overrideWithValue(
+          MockClient(
+            (r) async => http.Response(
+              jsonEncode({
+                'items': [_item('p1'), _item('p2')],
+                'next_cursor': null,
+              }),
+              200,
+            ),
+          ),
+        ),
+      ],
+    );
+    addTearDown(c.dispose);
+    await c.read(feedControllerProvider.future);
+    final notifier = c.read(feedControllerProvider.notifier);
+    notifier.onPinteStatusChanged(id: 'p1', invalidated: true);
+    final items = c.read(feedControllerProvider).value!.items;
+    expect(items.firstWhere((e) => e.id == 'p1').invalidated, true);
+    expect(items.firstWhere((e) => e.id == 'p2').invalidated, false);
+  });
 }
