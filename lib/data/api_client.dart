@@ -230,6 +230,16 @@ class ApiClient {
         .cast<String>();
   }
 
+  Future<({bool myRedCard, bool invalidated})> toggleRedCard(String pinteId) async {
+    final r = await _client.post(
+      _uri('/pintes/$pinteId/red_card'),
+      headers: await _headers(),
+    );
+    if (r.statusCode != 200) _fail(r);
+    final j = jsonDecode(r.body) as Map<String, dynamic>;
+    return (myRedCard: j['myRedCard'] as bool, invalidated: j['invalidated'] as bool);
+  }
+
   Future<Rankings> getRankings({String period = 'day', int limit = 10}) async {
     final r = await _client.get(
       _uri('/rankings', {'period': period, 'limit': limit}),

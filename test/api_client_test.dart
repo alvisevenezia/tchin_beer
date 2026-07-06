@@ -107,17 +107,34 @@ void main() {
   test('buyPack posts to /shop/packs/:id/buy and parses purchasedPacks', () async {
     final api = _client(
       MockClient((r) async {
-        expect(r.url.path, '/shop/packs/starter_pack/buy');
+        expect(r.url.path, '/shop/packs/party_pack/buy');
         return http.Response(
           jsonEncode({
-            'purchasedPacks': ['starter_pack'],
+            'purchasedPacks': ['party_pack'],
           }),
           200,
         );
       }),
       token: 'tok',
     );
-    final res = await api.buyPack('starter_pack');
-    expect(res, ['starter_pack']);
+    final res = await api.buyPack('party_pack');
+    expect(res, ['party_pack']);
+  });
+
+  test('toggleRedCard posts and parses myRedCard + invalidated', () async {
+    final api = _client(
+      MockClient((r) async {
+        expect(r.url.path, '/pintes/p1/red_card');
+        expect(r.method, 'POST');
+        return http.Response(
+          jsonEncode({'myRedCard': true, 'invalidated': false}),
+          200,
+        );
+      }),
+      token: 'tok',
+    );
+    final res = await api.toggleRedCard('p1');
+    expect(res.myRedCard, true);
+    expect(res.invalidated, false);
   });
 }
