@@ -26,11 +26,10 @@ class CounterController extends Notifier<CounterState> {
     return const CounterState();
   }
 
-  /// Total monotone : ignore tout recul.
+  /// Le total peut désormais monter ou descendre (une pinte peut être
+  /// invalidée puis revalidée) : on applique toujours la dernière valeur reçue.
   void applyTotal(int total) {
-    if (total > state.total) {
-      state = state.copyWith(total: total, reconnecting: false);
-    }
+    state = state.copyWith(total: total, reconnecting: false);
   }
 
   Future<void> start() async {
@@ -58,6 +57,11 @@ class CounterController extends Notifier<CounterState> {
                     .prepend(j['item'] as Map<String, dynamic>);
               case 'rankings_changed':
                 ref.read(rankingsControllerProvider.notifier).onRemoteChange();
+              case 'pinte_status':
+                ref.read(feedControllerProvider.notifier).onPinteStatusChanged(
+                      id: j['id'] as String,
+                      invalidated: j['invalidated'] as bool,
+                    );
             }
           },
           onError: (_) => _reconnect(),
