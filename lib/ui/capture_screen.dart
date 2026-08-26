@@ -161,16 +161,34 @@ class _CameraWithViewfinder extends StatelessWidget {
   final CameraController cam;
 
   @override
-  Widget build(BuildContext context) => Stack(
-    alignment: Alignment.center,
-    children: [
-      AspectRatio(
-        aspectRatio: cam.value.aspectRatio,
-        child: CameraPreview(cam),
+  Widget build(BuildContext context) {
+    // `previewSize` is reported in the sensor's natural (landscape) orientation,
+    // so on a portrait phone the displayed width/height are swapped. Sizing a box
+    // to that portrait ratio and letting FittedBox(cover) fill the area gives a
+    // full-bleed, undistorted preview (cropping overflow) instead of a small
+    // letterboxed rectangle in the middle of the screen.
+    final preview = cam.value.previewSize;
+    final displayW = preview?.height ?? 9;
+    final displayH = preview?.width ?? 16;
+    return SizedBox.expand(
+      child: ClipRect(
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: displayW,
+                height: displayH,
+                child: CameraPreview(cam),
+              ),
+            ),
+            const Positioned.fill(child: _ViewfinderCorners()),
+          ],
+        ),
       ),
-      const Positioned.fill(child: _ViewfinderCorners()),
-    ],
-  );
+    );
+  }
 }
 
 // ─── Quatre coins en équerre dorés (handoff) ─────────────────────────────
