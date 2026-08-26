@@ -26,6 +26,23 @@ flutter run --dart-define=API_BASE_URL=http://localhost:8000
 
 La base URL par défaut (sans `--dart-define`) est `http://10.0.2.2:8000` (cf. `lib/config.dart`).
 
+## Build de production (Android)
+
+L'URL de l'API de prod vit dans `dart_defines/prod.json`. Le build release est signé
+avec la clé d'upload définie dans `android/key.properties` (gitignoré ; keystore hors repo).
+
+```bash
+# AAB signé pour le Play Store, branché sur l'API de prod
+flutter build appbundle --release --dart-define-from-file=dart_defines/prod.json
+# → build/app/outputs/bundle/release/app-release.aab
+```
+
+> Play exige un `versionCode` (le `+N` de `version:` dans `pubspec.yaml`) strictement
+> supérieur au dernier build uploadé. Bumper à chaque soumission.
+>
+> iOS : `API_BASE_URL` est injectée par Xcode Cloud (variable d'environnement du workflow),
+> cf. `ios/ci_scripts/ci_post_clone.sh`.
+
 ## Tests
 
 Les tests utilisent `MockClient` (pas de backend requis).
