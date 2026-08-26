@@ -42,7 +42,11 @@ void main() {
     );
     await tester.pump(); // laisse les providers se résoudre
     await tester.tap(find.text('Fil'));
-    await tester.pumpAndSettle();
+    // NB: pumpAndSettle would time out — the home tab stays mounted in the
+    // IndexedStack and its "EN DIRECT" dot animates forever. Pump bounded frames
+    // to switch tab and let the (mocked) feed resolve instead.
+    await tester.pump(); // process the tap
+    await tester.pump(const Duration(milliseconds: 300));
     expect(find.text('Le fil'), findsOneWidget);
   });
 }
