@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../models/profile.dart';
+import '../state/counter_controller.dart';
 import '../state/profile_controller.dart';
 import '../state/rankings_controller.dart';
+import '../util/invite.dart';
 import 'shop_screen.dart';
 import '../theme/app_theme.dart';
 import '../theme/tokens.dart';
@@ -212,6 +214,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   _Stat('${p.redCardsReceived}', 'cartons reçus'),
                   _Stat('${p.invalidatedPintesCount}', 'invalidées'),
                 ],
+              ),
+              const SizedBox(height: 20),
+              _InviteCard(
+                onTap: () => shareInvite(
+                  total: ref.read(counterControllerProvider).total,
+                ),
               ),
               const SizedBox(height: 20),
               const _BadgesRow(),
@@ -596,6 +604,56 @@ class _Stat extends StatelessWidget {
         ),
       ),
     ],
+  );
+}
+
+class _InviteCard extends StatelessWidget {
+  const _InviteCard({required this.onTap});
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppTokens.coral,
+        borderRadius: BorderRadius.circular(AppTokens.radiusCard),
+        boxShadow: const [AppTokens.cardShadow],
+      ),
+      child: const Row(
+        children: [
+          Text('🍺', style: TextStyle(fontSize: 26)),
+          SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Inviter des potes',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 17,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  'On casse le plafond du million ensemble',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.ios_share, color: Colors.white),
+        ],
+      ),
+    ),
   );
 }
 

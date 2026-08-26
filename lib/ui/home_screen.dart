@@ -7,6 +7,7 @@ import '../state/rankings_controller.dart';
 import '../theme/app_theme.dart';
 import '../theme/tokens.dart';
 import '../util/format.dart';
+import '../util/invite.dart';
 import 'widgets/beer_glass_logo.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -64,6 +65,11 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
+                ),
+                IconButton(
+                  onPressed: () => shareInvite(total: counter.total),
+                  icon: const Icon(Icons.ios_share, color: AppTokens.coral),
+                  tooltip: 'Inviter des potes',
                 ),
               ],
             ),
